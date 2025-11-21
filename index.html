@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السوق السعودي | تجربة تسوق عصرية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-green-700">🇸🇦 السوق السعودي</div>
+            <div class="relative cursor-pointer" onclick="toggleCart()">
+                <span class="text-xl">🛒</span>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="bg-green-700 text-white py-20 text-center">
+        <h1 class="text-4xl font-bold mb-4">جودة سعودية، أسعار عالمية</h1>
+        <p class="text-xl mb-8 text-green-100">أفضل المنتجات المختارة بعناية واصلة لباب بيتك.</p>
+        <a href="#products" class="bg-white text-green-800 px-8 py-3 rounded-full font-bold hover:bg-gray-100 transition">تسوق الآن</a>
+    </header>
+
+    <section id="products" class="container mx-auto px-4 py-16">
+        <h2 class="text-3xl font-bold text-center mb-12">منتجاتنا المميزة</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="product-grid">
+            </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-8 text-center">
+        <p>&copy; 2025 السوق السعودي. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex justify-end">
+        <div class="bg-white w-full max-w-md h-full p-6 overflow-y-auto shadow-xl">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold">سلة المشتريات</h3>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
+            </div>
+            <div id="cart-items" class="space-y-4 mb-6">
+                <p class="text-gray-500 text-center">السلة فارغة حالياً</p>
+            </div>
+            <div class="border-t pt-4">
+                <div class="flex justify-between text-xl font-bold mb-6">
+                    <span>الإجمالي:</span>
+                    <span id="cart-total">0 ر.س</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold hover:bg-green-700 transition">إتمام الطلب عبر واتساب 📱</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product Data (Database simulation)
+        const products = [
+            { id: 1, name: "دهن عود فاخر", price: 250, image: "https://placehold.co/400x300/166534/FFFFFF?text=Oud" },
+            { id: 2, name: "طقم دلال قهوة", price: 180, image: "https://placehold.co/400x300/166534/FFFFFF?text=Coffee+Set" },
+            { id: 3, name: "ساعة رجالية كلاسيك", price: 350, image: "https://placehold.co/400x300/166534/FFFFFF?text=Watch" },
+        ];
+
+        let cart = [];
+
+        // Render Products
+        const grid = document.getElementById('product-grid');
+        products.forEach(p => {
+            grid.innerHTML += `
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition">
+                    <img src="${p.image}" alt="${p.name}" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">${p.name}</h3>
+                        <p class="text-green-700 font-bold text-lg mb-4">${p.price} ر.س</p>
+                        <button onclick="addToCart(${p.id})" class="w-full bg-gray-900 text-white py-2 rounded hover:bg-gray-700 transition">أضف للسلة +</button>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Cart Logic
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            cart.push(product);
+            updateCartUI();
+            toggleCart(); // Show cart immediately (Conversion tactic)
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const cartItems = document.getElementById('cart-items');
+            const totalEl = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p class="text-gray-500 text-center">السلة فارغة حالياً</p>';
+                totalEl.innerText = '0 ر.س';
+                return;
+            }
+
+            cartItems.innerHTML = cart.map((item, index) => `
+                <div class="flex justify-between items-center border-b pb-2">
+                    <div>
+                        <p class="font-bold">${item.name}</p>
+                        <p class="text-sm text-gray-500">${item.price} ر.س</p>
+                    </div>
+                    <button onclick="removeFromCart(${index})" class="text-red-500 text-sm">حذف</button>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            totalEl.innerText = total + ' ر.س';
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function toggleCart() {
+            document.getElementById('cart-modal').classList.toggle('hidden');
+        }
+
+        // WhatsApp Checkout Integration
+        function checkout() {
+            if (cart.length === 0) return alert('السلة فارغة!');
+            
+            let message = "مرحباً، أرغب بطلب المنتجات التالية من السوق السعودي:%0a";
+            cart.forEach(item => {
+                message += `- ${item.name} (${item.price} ر.س)%0a`;
+            });
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            message += `%0aالإجمالي: ${total} ر.س`;
+
+            // Replace with your actual WhatsApp number
+            window.open(`https://wa.me/966500000000?text=${message}`, '_blank');
+        }
+    </script>
+</body>
+</html>
