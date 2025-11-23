@@ -290,7 +290,7 @@
         
         .product-btn {
             width: 100%;
-            background: var(--success-color);
+            background: var(--primary-color);
             color: white;
             border: none;
             padding: 12px;
@@ -302,8 +302,12 @@
         }
         
         .product-btn:hover {
-            background: #128C7E;
-            transform: scale(1.02);
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+        
+        .view-more-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         }
         
         /* Loading */
@@ -537,10 +541,11 @@
             container.innerHTML = products.map(product => {
                 const discount = product.price - product.sale_price;
                 const discountPercent = Math.round((discount / product.price) * 100);
-                const slug = createSlug(product.title);
+                const slug = createSlug(product);
+                const productUrl = `products/${slug}.html`;
                 
                 return `
-                    <div class="product-card" onclick="window.location.href='products/${slug}.html'">
+                    <div class="product-card" onclick="window.open('${productUrl}', '_blank')">
                         <img src="${product.image_link}" alt="${product.title}" class="product-image" loading="lazy" onerror="this.src='https://via.placeholder.com/280x280?text=صورة+غير+متوفرة'">
                         <div class="product-info">
                             <h3 class="product-title">${product.title}</h3>
@@ -549,8 +554,8 @@
                                 <span class="original-price">${product.price} ر.س</span>
                                 <span class="discount-badge">-${discountPercent}%</span>
                             </div>
-                            <button class="product-btn" onclick="event.stopPropagation(); contactWhatsApp('${product.title.replace(/'/g, "\\'")}')">
-                                📱 اطلب الآن
+                            <button class="product-btn view-more-btn" onclick="event.stopPropagation(); window.open('${productUrl}', '_blank')">
+                                👁️ شاهد المزيد
                             </button>
                         </div>
                     </div>
@@ -558,9 +563,10 @@
             }).join('');
         }
 
-        // Create slug from title
-        function createSlug(title) {
-            return title.trim().replace(/ /g, '-').replace(/[<>:"/\\|?*]/g, '');
+        // Create slug from product ID and title (matching backend)
+        function createSlug(product) {
+            const titlePart = product.title.substring(0, 80).trim().replace(/ /g, '-').replace(/[<>:"/\\|?*()+]/g, '');
+            return `${product.id}-${titlePart}`;
         }
 
         // Search products
