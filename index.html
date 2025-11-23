@@ -373,6 +373,52 @@
             opacity: 0.8;
         }
         
+        /* Load More Button */
+        .load-more-btn {
+            background: var(--bg-gradient);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .load-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* Scroll to Top Button */
+        .scroll-top-btn {
+            position: fixed;
+            left: 30px;
+            bottom: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--bg-gradient);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .scroll-top-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
@@ -448,25 +494,35 @@
     <section class="categories">
         <h2 class="section-title">تصفح حسب الفئة</h2>
         <div class="categories-grid">
+            <div class="category-card" onclick="showAllProducts()">
+                <div class="category-icon">🛍️</div>
+                <div class="category-name">جميع المنتجات</div>
+                <div class="category-count" id="totalProductsCategory">2188 منتج</div>
+            </div>
             <div class="category-card" onclick="filterByCategory('beauty')">
                 <div class="category-icon">💄</div>
                 <div class="category-name">العناية بالجمال</div>
-                <div class="category-count">أكثر من 500 منتج</div>
+                <div class="category-count" id="count-beauty">جاري الحساب...</div>
             </div>
             <div class="category-card" onclick="filterByCategory('health')">
                 <div class="category-icon">🏥</div>
                 <div class="category-name">الصحة والعافية</div>
-                <div class="category-count">أكثر من 300 منتج</div>
+                <div class="category-count" id="count-health">جاري الحساب...</div>
             </div>
             <div class="category-card" onclick="filterByCategory('electronics')">
                 <div class="category-icon">⚡</div>
-                <div class="category-name">إلكترونيات</div>
-                <div class="category-count">أكثر من 400 منتج</div>
+                <div class="category-name">الإلكترونيات</div>
+                <div class="category-count" id="count-electronics">جاري الحساب...</div>
             </div>
             <div class="category-card" onclick="filterByCategory('home')">
                 <div class="category-icon">🏠</div>
-                <div class="category-name">المنزل</div>
-                <div class="category-count">أكثر من 200 منتج</div>
+                <div class="category-name">المنزل والأدوات</div>
+                <div class="category-count" id="count-home">جاري الحساب...</div>
+            </div>
+            <div class="category-card" onclick="filterByCategory('fashion')">
+                <div class="category-icon">👗</div>
+                <div class="category-name">الأزياء والموضة</div>
+                <div class="category-count" id="count-fashion">جاري الحساب...</div>
             </div>
         </div>
     </section>
@@ -484,7 +540,17 @@
             <h3>لم يتم العثور على نتائج</h3>
             <p>جرب البحث بكلمات مختلفة</p>
         </div>
+        <div style="text-align: center; margin: 40px 0;">
+            <button id="loadMoreBtn" class="load-more-btn" onclick="loadMore()" style="display: none;">
+                تحميل المزيد
+            </button>
+        </div>
     </section>
+    
+    <!-- Scroll to Top Button -->
+    <button id="scrollTopBtn" class="scroll-top-btn" onclick="scrollToTop()" style="display: none;">
+        ↑
+    </button>
 
     <!-- Footer -->
     <footer class="footer">
@@ -500,7 +566,52 @@
     <script>
         let allProducts = [];
         let displayedProducts = [];
+        let filteredProducts = [];
+        let currentPage = 1;
+        const PRODUCTS_PER_PAGE = 20;
         const WHATSAPP_NUMBER = '201110760081';
+        
+        // Google Merchant Center 2025 Categories (Arabic)
+        const CATEGORY_MAPPINGS = {
+            'beauty': {
+                keywords: ['شعر', 'بشرة', 'كريم', 'سيروم', 'ماسك', 'واقي', 'مرطب', 'تفتيح', 'شامبو', 'بلسم', 'زيت', 'صبغة', 'رموش', 'حواجب', 'مكياج', 'عطور', 'تجميل'],
+                name: 'العناية بالجمال',
+                icon: '💄'
+            },
+            'health': {
+                keywords: ['فيتامين', 'مكمل', 'كبسولات', 'حبوب', 'علاج', 'صحة', 'طبي', 'عضلات', 'ركبة', 'كاحل', 'مساج', 'تدليك', 'ضغط', 'قياس'],
+                name: 'الصحة والعافية',
+                icon: '🏥'
+            },
+            'electronics': {
+                keywords: ['جهاز', 'ماكينة', 'آلة', 'كهربائي', 'قابل للشحن', 'ليزر', 'حلاقة', 'فرشاة', 'مجفف', 'تمويج', 'فرد'],
+                name: 'الإلكترونيات',
+                icon: '⚡'
+            },
+            'home': {
+                keywords: ['منزل', 'مطبخ', 'وسادة', 'مقعد', 'خياطة', 'تنظيف', 'أدوات'],
+                name: 'المنزل والأدوات',
+                icon: '🏠'
+            },
+            'fashion': {
+                keywords: ['مشد', 'ملابس', 'شورت', 'قميص', 'ساعة', 'شماغ', 'عقال', 'إكسسوارات'],
+                name: 'الأزياء والموضة',
+                icon: '👗'
+            }
+        };
+
+        // Categorize product
+        function categorizeProduct(product) {
+            const title = product.title.toLowerCase();
+            
+            for (const [key, category] of Object.entries(CATEGORY_MAPPINGS)) {
+                if (category.keywords.some(keyword => title.includes(keyword))) {
+                    return key;
+                }
+            }
+            
+            return 'home'; // Default category
+        }
 
         // Load products from JSON
         async function loadProducts() {
@@ -512,11 +623,19 @@
             try {
                 const response = await fetch('products.json');
                 allProducts = await response.json();
+                
+                // Categorize all products
+                allProducts.forEach(product => {
+                    product.category = categorizeProduct(product);
+                });
+                
                 displayedProducts = allProducts;
+                filteredProducts = allProducts;
+                currentPage = 1;
                 
                 document.getElementById('totalProducts').textContent = allProducts.length;
-                
-                displayProducts(displayedProducts);
+                updateCategoryCounts();
+                displayProducts();
             } catch (error) {
                 console.error('خطأ في تحميل المنتجات:', error);
                 productsContainer.innerHTML = '<p style="color: white; text-align: center;">حدث خطأ في تحميل المنتجات. يرجى المحاولة لاحقاً.</p>';
@@ -525,20 +644,26 @@
             }
         }
 
-        // Display products
-        function displayProducts(products) {
+        // Display products with pagination
+        function displayProducts() {
             const container = document.getElementById('productsContainer');
             const noResults = document.getElementById('noResults');
+            const loadMoreBtn = document.getElementById('loadMoreBtn');
             
-            if (products.length === 0) {
+            if (filteredProducts.length === 0) {
                 container.innerHTML = '';
                 noResults.style.display = 'block';
+                if (loadMoreBtn) loadMoreBtn.style.display = 'none';
                 return;
             }
             
             noResults.style.display = 'none';
             
-            container.innerHTML = products.map(product => {
+            const startIndex = 0;
+            const endIndex = currentPage * PRODUCTS_PER_PAGE;
+            const productsToShow = filteredProducts.slice(startIndex, endIndex);
+            
+            container.innerHTML = productsToShow.map(product => {
                 const discount = product.price - product.sale_price;
                 const discountPercent = Math.round((discount / product.price) * 100);
                 const slug = createSlug(product);
@@ -561,6 +686,52 @@
                     </div>
                 `;
             }).join('');
+            
+            // Show/hide load more button
+            if (loadMoreBtn) {
+                if (endIndex >= filteredProducts.length) {
+                    loadMoreBtn.style.display = 'none';
+                } else {
+                    loadMoreBtn.style.display = 'block';
+                    loadMoreBtn.textContent = `تحميل المزيد (${filteredProducts.length - endIndex} منتج متبقي)`;
+                }
+            }
+        }
+        
+        // Load more products
+        function loadMore() {
+            currentPage++;
+            displayProducts();
+            
+            // Smooth scroll to new products
+            setTimeout(() => {
+                const newProducts = document.querySelectorAll('.product-card');
+                if (newProducts.length > 0) {
+                    const lastVisibleIndex = Math.min(currentPage * PRODUCTS_PER_PAGE - PRODUCTS_PER_PAGE - 1, newProducts.length - 1);
+                    if (newProducts[lastVisibleIndex]) {
+                        newProducts[lastVisibleIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                }
+            }, 100);
+        }
+        
+        // Update category counts
+        function updateCategoryCounts() {
+            const counts = {};
+            Object.keys(CATEGORY_MAPPINGS).forEach(key => counts[key] = 0);
+            
+            allProducts.forEach(product => {
+                if (counts.hasOwnProperty(product.category)) {
+                    counts[product.category]++;
+                }
+            });
+            
+            Object.entries(counts).forEach(([key, count]) => {
+                const element = document.getElementById(`count-${key}`);
+                if (element) {
+                    element.textContent = `${count} منتج`;
+                }
+            });
         }
 
         // Create slug from product ID and title (matching backend)
@@ -575,14 +746,16 @@
             const searchTerm = searchInput.value.trim().toLowerCase();
             
             if (searchTerm === '') {
-                displayedProducts = allProducts;
+                filteredProducts = displayedProducts;
             } else {
-                displayedProducts = allProducts.filter(product =>
+                filteredProducts = displayedProducts.filter(product =>
                     product.title.toLowerCase().includes(searchTerm)
                 );
             }
             
-            displayProducts(displayedProducts);
+            currentPage = 1;
+            displayProducts();
+            scrollToTop();
         }
 
         // Search on Enter key
@@ -597,20 +770,60 @@
             const searchTerm = this.value.trim().toLowerCase();
             
             if (searchTerm === '') {
-                displayedProducts = allProducts;
+                filteredProducts = displayedProducts;
             } else {
-                displayedProducts = allProducts.filter(product =>
+                filteredProducts = displayedProducts.filter(product =>
                     product.title.toLowerCase().includes(searchTerm)
                 );
             }
             
-            displayProducts(displayedProducts);
+            currentPage = 1;
+            displayProducts();
         });
 
-        // Filter by category (placeholder)
+        // Filter by category
         function filterByCategory(category) {
-            alert('سيتم إضافة ميزة التصنيف قريباً!');
+            displayedProducts = allProducts.filter(product => product.category === category);
+            filteredProducts = displayedProducts;
+            currentPage = 1;
+            displayProducts();
+            scrollToTop();
+            
+            // Highlight active category
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.style.opacity = '0.6';
+            });
+            event.currentTarget.style.opacity = '1';
         }
+        
+        // Show all products
+        function showAllProducts() {
+            displayedProducts = allProducts;
+            filteredProducts = allProducts;
+            currentPage = 1;
+            displayProducts();
+            scrollToTop();
+            
+            // Reset category highlighting
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.style.opacity = '1';
+            });
+        }
+        
+        // Scroll to top
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        
+        // Show/hide scroll to top button
+        window.addEventListener('scroll', function() {
+            const scrollBtn = document.getElementById('scrollTopBtn');
+            if (window.pageYOffset > 300) {
+                scrollBtn.style.display = 'flex';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
 
         // Contact via WhatsApp
         function contactWhatsApp(productTitle) {
