@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /products/
+Allow: /index.html
+
+Sitemap: https://alsooq-alsaudi.arabsad.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Disallow admin paths (if any)
+Disallow: /admin/
+Disallow: /*.json$
