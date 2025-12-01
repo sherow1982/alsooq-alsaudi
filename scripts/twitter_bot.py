@@ -13,6 +13,7 @@ from io import BytesIO
 import tweepy
 import requests
 from PIL import Image
+from urllib.parse import quote
 
 
 POSTED_PRODUCTS_FILE = 'scripts/posted_products.json'
@@ -125,8 +126,10 @@ def create_tweet_text(product):
     price = product.get('sale_price', product.get('price', 0))
     old_price = product.get('price', 0)
     product_id = product.get('id')
-    link = f"https://sherow1982.github.io/alsooq-alsaudi/products/{product_id}.html"
-    whatsapp = "https://wa.me/201110760081"
+    
+    # رسالة الواتساب
+    whatsapp_msg = f"مرحباً، أريد الاستفسار عن المنتج رقم {product_id} ({title})"
+    whatsapp = f"https://wa.me/201110760081?text={quote(whatsapp_msg)}"
     
     # حساب نسبة التخفيض
     discount = 0
@@ -147,8 +150,7 @@ def create_tweet_text(product):
         tweet += f"❌ السعر القديم: {old_price} ر.س\n"
     
     tweet += f"✅ السعر الآن: {price} ر.س\n\n"
-    tweet += f"📱 واتساب: {whatsapp}\n"
-    tweet += f"🛍️ اطلب الآن: {link}\n\n"
+    tweet += f"📱 اطلبه عبر واتساب الآن: {whatsapp}\n\n"
     tweet += f"{product_hashtag}\n"
     tweet += f"#السوق_السعودي #عروض_اليوم #تسوق_اونلاين\n"
     tweet += governorates
@@ -163,8 +165,7 @@ def create_tweet_text(product):
         if discount > 0:
             tweet += f"⚡ خصم {discount}%\n"
         tweet += f"✅ {price} ر.س\n\n"
-        tweet += f"📱 {whatsapp}\n"
-        tweet += f"🛍️ {link}\n\n"
+        tweet += f"📱 اطلبه عبر واتساب: {whatsapp}\n\n"
         tweet += f"{product_hashtag} #السوق_السعودي\n"
         tweet += "#الرياض #جدة #مكة"
     
