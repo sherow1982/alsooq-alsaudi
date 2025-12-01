@@ -1,41 +1,61 @@
-name: Auto Post to Twitter
+name: Prepare Twitter Post
 
 on:
   schedule:
-    # كل 8 ساعات
-    - cron: '0 */8 * * *'
+    - cron: '0 */8 * * *'  # كل 8 ساعات
   workflow_dispatch:
 
 jobs:
-  post-to-twitter:
+  prepare-post:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install tweepy Pillow requests
-
-      - name: Post to Twitter
-        env:
-          TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
-          TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
-          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-          TWITTER_ACCESS_SECRET: ${{ secrets.TWITTER_ACCESS_SECRET }}
-        run: |
-          python scripts/twitter_post.py
-
-      - name: Commit updated post index
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add scripts/post_index.txt
-          git diff --staged --quiet || git commit -m "Update post index [skip ci]"
-          git push
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests pillow
+    
+    - name: Prepare post content
+      run: |
+        python scripts/prepare_post.py
+    
+    - name: Display prepared content
+      run: |
+        echo "========================================"
+        echo "✅ تم تجهيز المحتوى بنجاح!"
+        echo "========================================"
+        cat scripts/ready_post.json
+        echo ""
+        echo "========================================"
+        echo "💡 يمكنك رؤية المحتوى الجاهز في Artifacts"
+        echo "========================================"
+    
+    - name: Commit updated index
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "GitHub Actions"
+        git add scripts/post_index.txt scripts/ready_post.json
+        git diff --quiet && git diff --staged --quiet || git commit -m "Update post index and prepare next post"
+    
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
+    
+    - name: Upload prepared post
+      uses: actions/upload-artifact@v3
+      with:
+        name: ready-to-post
+        path: scripts/ready_post.json
+        retention-days: 7
