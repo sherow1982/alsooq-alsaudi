@@ -70,6 +70,9 @@ def create_slug(product):
 
     slug = re.sub(r'[^\w\s-]', '', title).strip().lower()
     slug = re.sub(r'\s+', '-', slug)
+    # Truncate to 100 characters to avoid Windows MAX_PATH issues
+    if len(slug) > 100:
+        slug = slug[:100].rstrip('-')
     return f"{product['id']}-{slug}"
 
 def fix_product_feed():

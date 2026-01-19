@@ -4,6 +4,11 @@ import random
 from pathlib import Path
 from urllib.parse import quote
 from datetime import datetime
+import sys
+
+# Force UTF-8 for output to avoid encoding errors on Windows
+if sys.stdout.encoding.lower() != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
 
 def load_descriptions():
     """تحميل الوصف من ملف descriptions.json"""
@@ -32,6 +37,9 @@ def create_slug(product):
 
     slug = re.sub(r'[^\w\s-]', '', title).strip().lower()
     slug = re.sub(r'\s+', '-', slug)
+    # Truncate to 100 characters to avoid Windows MAX_PATH issues
+    if len(slug) > 100:
+        slug = slug[:100].rstrip('-')
     return f"{product['id']}-{slug}"
 
 def fix_image_url(url):
@@ -427,11 +435,9 @@ def generate_sitemap(products):
     
     with open('sitemap.xml', 'w', encoding='utf-8') as f:
         f.write('\n'.join(xml))
-    print("✅ تم توليد sitemap.xml بنجاح")
-
 def main():
-    """الدالة الرئيسية لتشغيل السكريبت"""
-    print("🚀 بدء توليد صفحات المنتجات...\n")
+    """Main function to run the script"""
+    print("Starting product page generation...\n")
     
     products_dir = Path('products')
     products_dir.mkdir(exist_ok=True)
@@ -439,7 +445,7 @@ def main():
     with open('products.json', 'r', encoding='utf-8') as f:
         products = json.load(f)
     
-    print(f"📦 عدد المنتجات: {len(products)}\n")
+    print(f"Total Products: {len(products)}\n")
     
     success_count = 0
     for i, product in enumerate(products, 1):
@@ -453,22 +459,17 @@ def main():
             
             success_count += 1
             if i % 100 == 0:
-                print(f"✅ تم إنشاء {i} صفحة...")
+                print(f"Generated {i} pages...")
         except Exception as e:
-            print(f"❌ خطأ في المنتج {i}: {e}")
+            print(f"Error in product {i}: {e}")
     
-    print(f"\n✅ تم إنشاء {success_count} صفحة منتج بنجاح\n")
+    print(f"\nSuccessfully generated {success_count} product pages\n")
     
     generate_sitemap(products)
 
-
-    print()
-    print("─" * 60)
-    print("╔════════════════════════════════════════════════════════════╗")
-    print("║                    ✨ تم الانتهاء بنجاح! ✨                  ║")
-    print("╚════════════════════════════════════════════════════════════╝")
-    print("─" * 60)
-    print()
+    print("\n" + "="*60)
+    print("DONE!")
+    print("="*60 + "\n")
 
 if __name__ == "__main__":
     main()

@@ -171,13 +171,25 @@ def inject_seo_into_html(html_content, product):
         return html_content
     
     # إزالة أي Schema أو Meta Tags قديمة
-    # إزالة JSON-LD القديم
+    # 1. إزالة JSON-LD القديم (كل البلوكات)
     html_content = re.sub(
         r'<script type="application/ld\+json">.*?</script>',
         '',
         html_content,
         flags=re.DOTALL
     )
+    
+    # 2. إزالة Meta Tags القديمة المحصورة بين تعليقات السيو
+    html_content = re.sub(
+        r'<!-- SEO Meta Tags -->.*?<!-- Twitter Card Meta Tags -->.*?(?=</head>)',
+        '',
+        html_content,
+        flags=re.DOTALL | re.IGNORECASE
+    )
+
+    # 3. إزالة التعليقات المتبقية للسكيما
+    html_content = html_content.replace('<!-- Product Schema JSON-LD -->', '')
+    html_content = html_content.replace('<!-- LocalBusiness Schema JSON-LD -->', '')
     
     # إضافة السكيما والميتا قبل </head>
     seo_injection = f"""
