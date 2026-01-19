@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 سكريبت تحسين السيو وإضافة السكيما لجميع صفحات المنتجات تلقائياً
-يعمل على Windows - يعدل كل صفحات المنتجات دفعة واحدة
+يعمل على Windows - يعدل كل صفحات المنتجات دفعة واحدة - نسخة محسنة بالأداء
 """
 
 import json
@@ -11,11 +11,27 @@ import sys
 from pathlib import Path
 import re
 from datetime import datetime, timedelta
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from urllib.parse import quote
 
 # Force UTF-8 for output to avoid encoding errors on Windows
 if sys.stdout.encoding.lower() != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
 
+def create_slug(product):
+    """توليد slug فريد للمنتج - يجب أن يطابق تماماً ما في generate_all_pages.py"""
+    stop_words = ['من', 'في', 'على', 'الى', 'عن', 'و', 'مع', 'يا', 'أيها']
+    
+    title = product['title']
+    for word in stop_words:
+        title = title.replace(f' {word} ', ' ')
+
+    slug = re.sub(r'[^\w\s-]', '', title).strip().lower()
+    slug = re.sub(r'\s+', '-', slug)
+    # Truncate to 100 characters to avoid Windows MAX_PATH issues
+    if len(slug) > 100:
+        slug = slug[:100].rstrip('-')
+    return f"{product['id']}-{slug}"
 
 def load_products():
     """تحميل بيانات المنتجات"""
@@ -23,9 +39,8 @@ def load_products():
         with open('products.json', 'r', encoding='utf-8') as f:
             return json.load(f)
     except Exception as e:
-        print(f"❌ خطأ في تحميل المنتجات: {e}")
+        print(f"❌ Error loading products: {e}")
         sys.exit(1)
-
 
 def create_product_schema(product):
     """إنشاء Product Schema JSON-LD"""
@@ -35,12 +50,9 @@ def create_product_schema(product):
     image = product.get('image_link', '')
     price = product.get('sale_price', product.get('price', 0))
     
-    # تنظيف العنوان للـ slug
-    slug = f"{product_id}-{title[:80]}"
-    slug = re.sub(r'[^\w\s\u0600-\u06FF-]', '', slug)
-    slug = slug.replace(' ', '-')
-    
-    product_url = f"https://sherow1982.github.io/alsooq-alsaudi/products/{slug}.html"
+    slug = create_slug(product)
+    encoded_slug = quote(slug)
+    product_url = f"https://sherow1982.github.io/alsooq-alsaudi/products/{encoded_slug}.html"
     
     # تاريخ انتهاء السعر (سنة من الآن)
     price_valid_until = (datetime.now() + timedelta(days=365)).strftime('%Y-%m-%d')
@@ -79,7 +91,6 @@ def create_product_schema(product):
     
     return json.dumps(schema, ensure_ascii=False, indent=2)
 
-
 def create_local_business_schema():
     """إنشاء LocalBusiness Schema للجيو"""
     schema = {
@@ -108,21 +119,16 @@ def create_local_business_schema():
     
     return json.dumps(schema, ensure_ascii=False, indent=2)
 
-
 def create_meta_tags(product):
     """إنشاء Meta Tags محسنة"""
     title = product.get('title', '')
     description = product.get('description', title[:150])
     image = product.get('image_link', '')
-    product_id = product.get('id')
     price = product.get('sale_price', product.get('price', 0))
     
-    # تنظيف العنوان للـ slug
-    slug = f"{product_id}-{title[:80]}"
-    slug = re.sub(r'[^\w\s\u0600-\u06FF-]', '', slug)
-    slug = slug.replace(' ', '-')
-    
-    product_url = f"https://sherow1982.github.io/alsooq-alsaudi/products/{slug}.html"
+    slug = create_slug(product)
+    encoded_slug = quote(slug)
+    product_url = f"https://sherow1982.github.io/alsooq-alsaudi/products/{encoded_slug}.html"
     
     # اختصار الوصف لـ Meta Description
     if len(description) > 155:
@@ -156,42 +162,25 @@ def create_meta_tags(product):
     
     return meta_tags
 
-
-def inject_seo_into_html(html_content, product):
+def inject_seo_into_html(html_content, product, lb_schema):
     """حقن السيو والسكيما في HTML"""
-    
-    # إنشاء السكيمات
     product_schema = create_product_schema(product)
-    local_business_schema = create_local_business_schema()
     meta_tags = create_meta_tags(product)
     
-    # البحث عن </head>
     if '</head>' not in html_content:
-        print(f"   ⚠️ تحذير: لم يتم العثور على </head> في الصفحة")
         return html_content
     
-    # إزالة أي Schema أو Meta Tags قديمة
-    # 1. إزالة JSON-LD القديم (كل البلوكات)
-    html_content = re.sub(
-        r'<script type="application/ld\+json">.*?</script>',
-        '',
-        html_content,
-        flags=re.DOTALL
-    )
+    # 1. إزالة أي JSON-LD قديم
+    html_content = re.sub(r'<script type="application/ld\+json">.*?</script>', '', html_content, flags=re.DOTALL)
     
-    # 2. إزالة Meta Tags القديمة المحصورة بين تعليقات السيو
-    html_content = re.sub(
-        r'<!-- SEO Meta Tags -->.*?<!-- Twitter Card Meta Tags -->.*?(?=</head>)',
-        '',
-        html_content,
-        flags=re.DOTALL | re.IGNORECASE
-    )
+    # 2. إزالة Meta Tags القديمة
+    html_content = re.sub(r'<!-- SEO Meta Tags -->.*?<!-- Twitter Card Meta Tags -->.*?(?=</head>)', '', html_content, flags=re.DOTALL | re.IGNORECASE)
 
-    # 3. إزالة التعليقات المتبقية للسكيما
+    # 3. إزالة التعليقات المتبقية
     html_content = html_content.replace('<!-- Product Schema JSON-LD -->', '')
     html_content = html_content.replace('<!-- LocalBusiness Schema JSON-LD -->', '')
     
-    # إضافة السكيما والميتا قبل </head>
+    # إضافة السكيما والميتا
     seo_injection = f"""
 {meta_tags}
 
@@ -202,103 +191,89 @@ def inject_seo_into_html(html_content, product):
 
 <!-- LocalBusiness Schema JSON-LD -->
 <script type="application/ld+json">
-{local_business_schema}
+{lb_schema}
 </script>
 
 </head>"""
     
-    html_content = html_content.replace('</head>', seo_injection)
-    
-    return html_content
+    return html_content.replace('</head>', seo_injection)
 
-
-def process_product_file(product, products_dir):
-    """معالجة ملف منتج واحد"""
-    product_id = product.get('id')
-    title = product.get('title', '')
-    
-    # البحث عن الملف
-    # نمط 1: {id}-{title}.html
-    slug = f"{product_id}-{title[:80]}"
-    slug = re.sub(r'[^\w\s\u0600-\u06FF-]', '', slug)
-    slug = slug.replace(' ', '-')
-    file_path = products_dir / f"{slug}.html"
-    
-    # نمط 2: {id}.html
-    if not file_path.exists():
-        file_path = products_dir / f"{product_id}.html"
-    
-    # نمط 3: البحث عن أي ملف يبدأ بـ {id}-
-    if not file_path.exists():
-        pattern = f"{product_id}-*.html"
-        matching_files = list(products_dir.glob(pattern))
-        if matching_files:
-            file_path = matching_files[0]
-    
-    if not file_path.exists():
-        print(f"   ⚠️ لم يتم العثور على ملف المنتج {product_id}")
-        return False
-    
+def process_single_file(product, products_dir, lb_schema):
+    """Worker function for single file processing"""
     try:
-        # قراءة المحتوى
+        slug = create_slug(product)
+        file_path = products_dir / f"{slug}.html"
+        
+        if not file_path.exists():
+            # Fallback search if exact slug doesn't match
+            pattern = f"{product['id']}-*.html"
+            matching_files = list(products_dir.glob(pattern))
+            if matching_files:
+                file_path = matching_files[0]
+            else:
+                return False, f"Not found: {product['id']}"
+
         with open(file_path, 'r', encoding='utf-8') as f:
             html_content = f.read()
         
-        # حقن السيو
-        updated_content = inject_seo_into_html(html_content, product)
+        updated_content = inject_seo_into_html(html_content, product, lb_schema)
         
-        # حفظ الملف المحدث
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(updated_content)
-        
-        print(f"   ✅ تم تحديث: {file_path.name}")
-        return True
-        
+            
+        return True, file_path.name
     except Exception as e:
-        print(f"   ❌ خطأ في معالجة {file_path.name}: {e}")
-        return False
-
+        return False, f"Error processing {product.get('id')}: {e}"
 
 def main():
     """الدالة الرئيسية"""
     print("\n" + "="*60)
-    print("Starting SEO Optimization and Schema Injection")
+    print("Starting optimized SEO Optimization and Schema Injection")
     print("="*60 + "\n")
     
-    # تحميل المنتجات
     products = load_products()
-    print(f"📦 تم تحميل {len(products)} منتج\n")
-    
-    # مجلد المنتجات
     products_dir = Path('products')
-    if not products_dir.exists():
-        print(f"❌ مجلد المنتجات غير موجود: {products_dir}")
-        sys.exit(1)
+    lb_schema = create_local_business_schema()
     
-    # معالجة كل منتج
+    print(f"📦 Total Products: {len(products)}")
+    print("Using Parallel Processing...\n")
+    
     success_count = 0
     fail_count = 0
     
-    print("Processing files...\n")
+    import time
+    start_time = time.time()
     
-    for i, product in enumerate(products, 1):
-        print(f"[{i}/{len(products)}] معالجة: {product.get('title', '')[:50]}...")
+    with ProcessPoolExecutor() as executor:
+        futures = {executor.submit(process_single_file, p, products_dir, lb_schema): p for p in products}
         
-        if process_product_file(product, products_dir):
-            success_count += 1
-        else:
-            fail_count += 1
+        processed_count = 0
+        for future in as_completed(futures):
+            processed_count += 1
+            success, result = future.result()
+            if success:
+                success_count += 1
+            else:
+                fail_count += 1
+                # Only print serious failures or missing files
+                if "Not found" in result:
+                     pass # Expected if files were moved/renamed previously but json not updated
+                else:
+                     print(f"❌ {result}")
+            
+            if processed_count % 200 == 0:
+                print(f"Progress: {processed_count}/{len(products)} pages processed...")
     
-    # الإحصائيات النهائية
-    print("\n" + "="*60)
-    print("\nDone! All pages optimized for SEO\n")
+    end_time = time.time()
+    print(f"\nDone! Successfully updated {success_count} pages")
+    if fail_count > 0:
+        print(f"Skipped/Failed {fail_count} products")
+    print(f"Execution Time: {end_time - start_time:.2f} seconds")
     
-    print("📝 الخطوات التالية:")
-    print("1. ارفع الملفات المحدثة على GitHub")
-    print("2. اختبر صفحة واحدة على: https://search.google.com/test/rich-results")
-    print("3. راقب Search Console للتحقق من الفهرسة")
+    print("\n📝 Final Steps:")
+    print("1. Push changes to GitHub")
+    print("2. Test rich results")
     print("\n")
-
 
 if __name__ == '__main__':
     main()

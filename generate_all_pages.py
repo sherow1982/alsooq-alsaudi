@@ -5,24 +5,34 @@ from pathlib import Path
 from urllib.parse import quote
 from datetime import datetime
 import sys
+from concurrent.futures import ProcessPoolExecutor, as_completed
 
 # Force UTF-8 for output to avoid encoding errors on Windows
 if sys.stdout.encoding.lower() != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
 
+# Global cache for descriptions to avoid redundant loading in workers
+_DESCRIPTIONS_CACHE = None
+
 def load_descriptions():
     """تحميل الوصف من ملف descriptions.json"""
+    global _DESCRIPTIONS_CACHE
+    if _DESCRIPTIONS_CACHE is not None:
+        return _DESCRIPTIONS_CACHE
+        
     try:
         with open('descriptions.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
-            return list(data.values())
+            _DESCRIPTIONS_CACHE = list(data.values())
+            return _DESCRIPTIONS_CACHE
     except Exception as e:
-        print(f"⚠️ خطأ في تحميل الوصف: {e}")
+        print(f"⚠️ Error loading descriptions: {e}")
         return []
 
-def get_random_description(title):
+def get_random_description(title, descriptions=None):
     """الحصول على وصف عشوائي مناسب للمنتج"""
-    descriptions = load_descriptions()
+    if descriptions is None:
+        descriptions = load_descriptions()
     if not descriptions:
         return f"{title} - منتج أصلي بضمان الجودة. اطلب الآن من السوق السعودي!"
     return random.choice(descriptions)
@@ -71,7 +81,7 @@ def get_product_category(title):
     else:
         return 'Home & Garden', 'المنزل والأدوات'
 
-def generate_product_html(product):
+def generate_product_html(product, descriptions=None):
     """توليد صفحة HTML لمنتج واحد"""
     slug = create_slug(product)
     encoded_slug = quote(slug)
@@ -80,7 +90,7 @@ def generate_product_html(product):
     discount = product['price'] - product['sale_price']
     discount_percentage = int((discount / product['price']) * 100) if product['price'] > 0 else 0
     
-    description = get_random_description(product['title'])
+    description = get_random_description(product['title'], descriptions)
     
     product_url = f"https://sherow1982.github.io/alsooq-alsaudi/products/{encoded_slug}.html"
     whatsapp_message = f"""مرحباً، أريد طلب المنتج التالي:
@@ -384,7 +394,19 @@ def generate_product_html(product):
     
     return html
 
-
+def process_single_product(product, descriptions):
+    """Worker function to process a single product"""
+    try:
+        slug = create_slug(product)
+        html = generate_product_html(product, descriptions)
+        
+        products_dir = Path('products')
+        file_path = products_dir / f"{slug}.html"
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(html)
+        return True, product['id']
+    except Exception as e:
+        return False, f"Product {product['id']}: {e}"
 
 def generate_sitemap(products):
     """توليد sitemap.xml"""
@@ -435,9 +457,11 @@ def generate_sitemap(products):
     
     with open('sitemap.xml', 'w', encoding='utf-8') as f:
         f.write('\n'.join(xml))
+    print("Done! sitemap.xml generated successfully")
+
 def main():
     """Main function to run the script"""
-    print("Starting product page generation...\n")
+    print("Starting optimized product page generation...\n")
     
     products_dir = Path('products')
     products_dir.mkdir(exist_ok=True)
@@ -445,25 +469,39 @@ def main():
     with open('products.json', 'r', encoding='utf-8') as f:
         products = json.load(f)
     
-    print(f"Total Products: {len(products)}\n")
+    descriptions = load_descriptions()
+    
+    print(f"Total Products: {len(products)}")
+    print("Using Parallel Processing...")
     
     success_count = 0
-    for i, product in enumerate(products, 1):
-        try:
-            slug = create_slug(product)
-            html = generate_product_html(product)
-            
-            file_path = products_dir / f"{slug}.html"
-            with open(file_path, 'w', encoding='utf-8') as f:
-                f.write(html)
-            
-            success_count += 1
-            if i % 100 == 0:
-                print(f"Generated {i} pages...")
-        except Exception as e:
-            print(f"Error in product {i}: {e}")
+    fail_count = 0
     
-    print(f"\nSuccessfully generated {success_count} product pages\n")
+    import time
+    start_time = time.time()
+    
+    with ProcessPoolExecutor() as executor:
+        # Submit all tasks
+        futures = {executor.submit(process_single_product, p, descriptions): p for p in products}
+        
+        processed_count = 0
+        for future in as_completed(futures):
+            processed_count += 1
+            success, result = future.result()
+            if success:
+                success_count += 1
+            else:
+                fail_count += 1
+                print(f"❌ {result}")
+            
+            if processed_count % 200 == 0:
+                print(f"Progress: {processed_count}/{len(products)} pages processed...")
+    
+    end_time = time.time()
+    print(f"\nSuccessfully generated {success_count} product pages")
+    if fail_count > 0:
+        print(f"Failed to generate {fail_count} product pages")
+    print(f"Execution Time: {end_time - start_time:.2f} seconds")
     
     generate_sitemap(products)
 
