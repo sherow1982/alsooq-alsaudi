@@ -1,6 +1,11 @@
 import json
 import re
 from urllib.parse import quote
+import sys
+
+# Force UTF-8 for output to avoid encoding errors on Windows
+if sys.stdout.encoding.lower() != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
 
 def generate_mpn(product):
     """توليد MPN فريد للمنتج"""
@@ -82,6 +87,21 @@ def fix_product_feed():
     with open('products.json', 'r', encoding='utf-8') as f:
         products = json.load(f)
     
+    # قائمة الماركات المحظورة (عربي وإنجليزي) لتجنب تعليق الحساب
+    PROHIBITED_BRANDS = [
+        # الساعات
+        'rolex', 'رولكس', 'hublot', 'هوبلو', 'casio', 'كاسيو', 'tissot', 'تيسو', 
+        'omega', 'أوميغا', 'أوميجا', 'patek philippe', 'باتيك فيليب', 'audemars piguet', 'أوديمار بيجيه',
+        'cartier', 'كارتير', 'كارتيه',
+        # الملابس والأحذية
+        'nike', 'نايك', 'نايكي', 'adidas', 'أديداس', 'puma', 'بوما', 'gucci', 'قوتشي',
+        'prada', 'برادا', 'louis vuitton', 'لويس فيتون', 'chanel', 'شانيل', 'dior', 'ديور',
+        'zara', 'زارا', 'h&m', 'lacoste', 'لاكويت', 'tommy hilfiger', 'تومي هيلفيغر', 'تومي',
+        # العطور
+        'sauvage', 'سوفاج', 'bleu de chanel', 'بلو دي شانيل', 'creed', 'كريد', 
+        'tom ford', 'توم فورد', 'versace', 'فرزاتشي', 'فان كليف', 'van cleef'
+    ]
+    
     xml = ['<?xml version="1.0" encoding="UTF-8"?>']
     xml.append('<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">')
     xml.append('  <channel>')
@@ -89,11 +109,19 @@ def fix_product_feed():
     xml.append(f'    <link>{base_url}/</link>')
     xml.append('    <description>أفضل العروض والمنتجات الأصلية بأسعار تنافسية</description>')
     
+    excluded_count = 0
     for product in products:
         skip_product = False
         
         # تنظيف البيانات أولاً
         clean_title = clean_product_title(product['title'])
+        title_lower = clean_title.lower()
+        
+        # التحقق من الماركات المحظورة
+        if any(brand in title_lower for brand in PROHIBITED_BRANDS):
+            print(f"🚫 Excluded brand detected: {clean_title}")
+            skip_product = True
+            excluded_count += 1
         
         # التحقق من صلاحية المنتج
         if 'not compatible with our policy' in clean_title.lower():
@@ -154,7 +182,9 @@ def fix_product_feed():
     with open('product-feed.xml', 'w', encoding='utf-8') as f:
         f.write('\n'.join(xml))
     
-    print("Done! product-feed.xml generated successfully")
+    print(f"Done! product-feed.xml generated successfully")
+    print(f"Total products in feed: {len(products) - excluded_count}")
+    print(f"Total products excluded (brands/policy): {excluded_count}")
     print("Fixed XML encoding issues (& to &amp;)")
     print("Added required fields: mpn")
     print("Cleaned descriptions from promotional text")
