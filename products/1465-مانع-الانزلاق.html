@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="يتميز صانع مكعبات الثلج من السيليكون بمواصفات عالية الجودة وتصميم عملي يسهل الاستخدام اليومي. منتج موثوق يحقق نتائج ممتازة ويوفر قيمة حقيقية مقابل المال. استثما">
+    <meta name="description" content="يتميز عرض 10 قطع المفتاح الذكي ناسخ الأزرار بمواصفات عالية الجودة وتصميم عملي يسهل الاستخدام اليومي. منتج موثوق يحقق نتائج ممتازة ويوفر قيمة حقيقية مقابل المال.">
     <meta property="og:title" content=" مانع الانزلاق">
-    <meta property="og:description" content="يتميز صانع مكعبات الثلج من السيليكون بمواصفات عالية الجودة وتصميم عملي يسهل الاستخدام اليومي. منتج موثوق يحقق نتائج ممتازة ويوفر قيمة حقيقية مقابل المال. استثمار ذكي لكل من يبحث عن الجودة والكفاءة.">
+    <meta property="og:description" content="يتميز عرض 10 قطع المفتاح الذكي ناسخ الأزرار بمواصفات عالية الجودة وتصميم عملي يسهل الاستخدام اليومي. منتج موثوق يحقق نتائج ممتازة ويوفر قيمة حقيقية مقابل المال. استثمار ذكي لكل من يبحث عن الجودة والكف">
     <meta property="og:image" content="https://media.taager.com/360x360/69424b9a-4b34-405c-a86c-4c0d1f86ee5a.jpg">
     <title> مانع الانزلاق | السوق السعودي</title>
+
+    <link rel="stylesheet" href="../css/main.css">
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -18,196 +20,81 @@
     <!-- End Google Tag Manager -->
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            direction: rtl;
-            background: #f8f9fa;
-            color: #333;
-            line-height: 1.8;
-        }
-
-        .topbar {
-            background: #2c3e50;
-            color: white;
-            padding: 10px 0;
-            font-size: 13px;
-        }
-
-        .topbar-content {
+        .product-container {
             max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .header {
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .back-btn {
-            background: #3498db;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .back-btn:hover {
-            background: #2980b9;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
+            margin: 60px auto;
             padding: 0 20px;
         }
-
-        .product-main {
+        .product-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 40px;
+            gap: 50px;
             background: white;
             padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
         }
-
-        .product-gallery {
-            position: relative;
-        }
-
-        .product-image {
+        .product-gallery img {
             width: 100%;
             height: auto;
             border-radius: 12px;
-            object-fit: cover;
+            box-shadow: var(--shadow-sm);
         }
-
-        .product-info h1 {
-            font-size: 32px;
-            color: #2c3e50;
+        .product-details h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
             margin-bottom: 20px;
             line-height: 1.4;
         }
-
-        .prices {
+        .product-price-box {
+            background: rgba(0, 108, 53, 0.05);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            gap: 20px;
         }
-
-        .current-price {
-            font-size: 36px;
-            font-weight: bold;
-            color: #27ae60;
-        }
-
-        .old-price {
-            font-size: 24px;
-            text-decoration: line-through;
-            color: #95a5a6;
-        }
-
-        .discount {
-            background: #e74c3c;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .description {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            line-height: 1.8;
-        }
-
-        .whatsapp-btn {
+        .whatsapp-order-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             background: #25D366;
             color: white;
-            padding: 15px 30px;
-            border-radius: 8px;
             text-decoration: none;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 1.3rem;
             font-weight: bold;
-            font-size: 18px;
-            display: inline-block;
-            margin-top: 20px;
-            transition: all 0.3s;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
         }
-
-        .whatsapp-btn:hover {
+        .whatsapp-order-btn:hover {
             background: #128C7E;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3);
         }
-
-        .product-meta {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
+        .trust-badges {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 40px;
         }
-
-        .meta-item {
+        .badge-item {
             display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .meta-label {
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
             color: #666;
-            font-weight: 500;
         }
-
-        .meta-value {
-            color: #2c3e50;
-            font-weight: bold;
-        }
-
         @media (max-width: 768px) {
-            .product-main {
+            .product-layout {
                 grid-template-columns: 1fr;
                 padding: 20px;
             }
-
-            .product-image {
-                height: 300px;
-            }
-
-            h1 {
-                font-size: 24px;
+            .product-details h1 {
+                font-size: 1.6rem;
             }
         }
     </style>
@@ -311,66 +198,67 @@
 
     <div class="topbar">
         <div class="topbar-content">
-            <span>📞 خدمة العملاء: 201110760081</span>
-            <span>🚚 توصيل سريع لجميع أنحاء المملكة</span>
+            <span>🏅 منتج أصلي بضمان السوق السعودي</span>
+            <span>🚚 شحن سريع لكافة مدن المملكة</span>
         </div>
     </div>
 
     <header class="header">
         <div class="header-content">
-            <div class="logo">🛍️ السوق السعودي</div>
-            <a href="../index.html" class="back-btn">← العودة للرئيسية</a>
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../logo.png" alt="السوق السعودي">
+                </a>
+            </div>
+            <nav class="nav-links">
+                <a href="../index.html">الرئيسية</a>
+                <a href="https://wa.me/201110760081" class="whatsapp-cta" target="_blank">
+                    <span>اطلب عبر واتساب</span>
+                </a>
+            </nav>
         </div>
     </header>
 
-    <div class="container">
-        <div class="product-main">
+    <main class="product-container">
+        <div class="product-layout">
             <div class="product-gallery">
-                <img src="https://media.taager.com/360x360/69424b9a-4b34-405c-a86c-4c0d1f86ee5a.jpg" alt=" مانع الانزلاق" class="product-image" loading="lazy">
+                <img src="https://media.taager.com/360x360/69424b9a-4b34-405c-a86c-4c0d1f86ee5a.jpg" alt=" مانع الانزلاق" loading="lazy">
             </div>
-            
-            <div class="product-info">
+            <div class="product-details">
                 <h1> مانع الانزلاق</h1>
                 
-                <div class="prices">
-                    <span class="current-price">180 ر.س</span>
-                    <span class="old-price">280 ر.س</span>
-                    <span class="discount">-35%</span>
+                <div class="product-price-box">
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 0.9rem; color: #666;">السعر الحالي</span>
+                        <span class="price-current" style="font-size: 2.5rem;">180 ر.س</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; opacity: 0.6;">
+                        <span style="font-size: 0.8rem; text-decoration: line-through;">280 ر.س</span>
+                        <span style="color: #e74c3c; font-weight: bold;">وفر 100 ر.س</span>
+                    </div>
                 </div>
 
-                <div class="description">
-                    <strong>📝 وصف المنتج:</strong><br><br>
-                    يتميز صانع مكعبات الثلج من السيليكون بمواصفات عالية الجودة وتصميم عملي يسهل الاستخدام اليومي. منتج موثوق يحقق نتائج ممتازة ويوفر قيمة حقيقية مقابل المال. استثمار ذكي لكل من يبحث عن الجودة والكفاءة.
+                <div style="margin-bottom: 30px; color: #555; line-height: 1.8;">
+                    يتميز عرض 10 قطع المفتاح الذكي ناسخ الأزرار بمواصفات عالية الجودة وتصميم عملي يسهل الاستخدام اليومي. منتج موثوق يحقق نتائج ممتازة ويوفر قيمة حقيقية مقابل المال. استثمار ذكي لكل من يبحث عن الجودة والكفاءة.
                 </div>
 
-                <a href="https://wa.me/201110760081?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B7%D9%84%D8%A8%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%20%D8%A7%D9%84%D8%AA%D8%A7%D9%84%D9%8A%3A%0A%0A%F0%9F%93%A6%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%3A%20%20%D9%85%D8%A7%D9%86%D8%B9%20%D8%A7%D9%84%D8%A7%D9%86%D8%B2%D9%84%D8%A7%D9%82%0A%F0%9F%92%B0%20%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%3A%20180%20%D8%B1%D9%8A%D8%A7%D9%84%20%28%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%20%D8%A7%D9%84%D8%A3%D8%B5%D9%84%D9%8A%3A%20280%20%D8%B1%D9%8A%D8%A7%D9%84%29%0A%F0%9F%92%B5%20%D8%A7%D9%84%D8%AA%D9%88%D9%81%D9%8A%D8%B1%3A%20100%20%D8%B1%D9%8A%D8%A7%D9%84%20%2835%25%20%D8%AE%D8%B5%D9%85%29%0A%F0%9F%94%97%20%D8%A7%D9%84%D8%B1%D8%A7%D8%A8%D8%B7%3A%20https%3A//sherow1982.github.io/alsooq-alsaudi/products/1465-%25D9%2585%25D8%25A7%25D9%2586%25D8%25B9-%25D8%25A7%25D9%2584%25D8%25A7%25D9%2586%25D8%25B2%25D9%2584%25D8%25A7%25D9%2582.html%0A%0A%D9%8A%D8%B1%D8%AC%D9%89%20%D8%AA%D8%A3%D9%83%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AA%D9%88%D9%81%D8%B1%20%D9%88%D8%A7%D9%84%D8%AA%D9%88%D8%B5%D9%8A%D9%84." class="whatsapp-btn" target="_blank">
-                    📱 اطلب عبر واتساب
+                <a href="https://wa.me/201110760081?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%D8%8C%20%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B7%D9%84%D8%A8%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%20%D8%A7%D9%84%D8%AA%D8%A7%D9%84%D9%8A%3A%0A%0A%F0%9F%93%A6%20%D8%A7%D9%84%D9%85%D9%86%D8%AA%D8%AC%3A%20%20%D9%85%D8%A7%D9%86%D8%B9%20%D8%A7%D9%84%D8%A7%D9%86%D8%B2%D9%84%D8%A7%D9%82%0A%F0%9F%92%B0%20%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%3A%20180%20%D8%B1%D9%8A%D8%A7%D9%84%20%28%D8%A7%D9%84%D8%B3%D8%B9%D8%B1%20%D8%A7%D9%84%D8%A3%D8%B5%D9%84%D9%8A%3A%20280%20%D8%B1%D9%8A%D8%A7%D9%84%29%0A%F0%9F%92%B5%20%D8%A7%D9%84%D8%AA%D9%88%D9%81%D9%8A%D8%B1%3A%20100%20%D8%B1%D9%8A%D8%A7%D9%84%20%2835%25%20%D8%AE%D8%B5%D9%85%29%0A%F0%9F%94%97%20%D8%A7%D9%84%D8%B1%D8%A7%D8%A8%D8%B7%3A%20https%3A//sherow1982.github.io/alsooq-alsaudi/products/1465-%25D9%2585%25D8%25A7%25D9%2586%25D8%25B9-%25D8%25A7%25D9%2584%25D8%25A7%25D9%2586%25D8%25B2%25D9%2584%25D8%25A7%25D9%2582.html%0A%0A%D9%8A%D8%B1%D8%AC%D9%89%20%D8%AA%D8%A3%D9%83%D9%8A%D8%AF%20%D8%A7%D9%84%D8%AA%D9%88%D9%81%D8%B1%20%D9%88%D8%A7%D9%84%D8%AA%D9%88%D8%B5%D9%8A%D9%84." class="whatsapp-order-btn" target="_blank">
+                    <span>اطلب الآن عبر واتساب</span>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.012c.109.006.252-.041.397.308.145.348.499 1.223.541 1.312.041.089.068.191.008.312-.06.121-.09.197-.181.302-.09.105-.19.235-.272.316-.09.09-.184.188-.079.365.105.177.465.766.997 1.239.685.611 1.26.802 1.437.89.177.089.282.075.387-.041.105-.116.443-.518.562-.695.119-.177.239-.148.405-.087.166.061 1.054.497 1.234.587s.3.135.344.209c.044.075.044.436-.1.841z"/></svg>
                 </a>
 
-                <div class="product-meta">
-                    <div class="meta-item">
-                        <span class="meta-label">💵 التوفير</span>
-                        <span class="meta-value">100 ريال</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">📦 الفئة</span>
-                        <span class="meta-value">المنزل والأدوات</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">🚚 الشحن</span>
-                        <span class="meta-value">مجاناً لجميع المملكة</span>
-                    </div>
-                    <div class="meta-item">
-                        <span class="meta-label">⏱️ التوصيل</span>
-                        <span class="meta-value">1-3 أيام عمل</span>
-                    </div>
+                <div class="trust-badges">
+                    <div class="badge-item">✅ أصلي 100%</div>
+                    <div class="badge-item">🚚 شحن مجاني</div>
+                    <div class="badge-item">🔄 إرجاع سهل</div>
+                    <div class="badge-item">💳 دفع عند الاستلام</div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <footer style="background: #2c3e50; color: white; padding: 40px 20px; margin-top: 60px; text-align: center;">
-        <p>&copy; 2025 السوق السعودي. جميع الحقوق محفوظة.</p>
+    <footer style="background: #1a1a1a; color: #999; padding: 40px 20px; text-align: center; margin-top: 80px;">
+        <p>جميع الحقوق محفوظة &copy; 2026 السوق السعودي</p>
     </footer>
 </body>
 </html>

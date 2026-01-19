@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="السوق السعودي - أفضل العروض والمنتجات الأصلية بأسعار تنافسية">
-    <title>السوق السعودي - تسوق أونلاين</title>
+    <meta name="description" content="السوق السعودي - وجهتك الأولى لأفضل المنتجات الأصلية والعروض الحصرية في المملكة.">
+    <title>السوق السعودي | فخامة التسوق بين يديك</title>
+
+    <link rel="stylesheet" href="css/main.css">
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -22,453 +24,6 @@
       gtag('js', new Date());
       gtag('config', 'G-0P75920MMY');
     </script>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            direction: rtl;
-            background: #f8f9fa;
-            color: #333;
-        }
-
-        /* Header */
-        .topbar {
-            background: #2c3e50;
-            color: white;
-            padding: 10px 0;
-            font-size: 13px;
-        }
-
-        .topbar-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .header {
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: #2c3e50;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #3498db;
-        }
-
-        .whatsapp-btn-header {
-            background: #25D366;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .whatsapp-btn-header:hover {
-            background: #128C7E;
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 15px;
-        }
-
-        .hero p {
-            font-size: 18px;
-            opacity: 0.95;
-        }
-
-        /* Stats Section */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: -40px auto 40px;
-            padding: 0 20px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .stat-number {
-            font-size: 48px;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            color: #666;
-            font-size: 16px;
-        }
-
-        /* Categories Section */
-        .categories-section {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            font-size: 32px;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .category-card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-        }
-
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-color: #667eea;
-        }
-
-        .category-card.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .category-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
-        .category-name {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .category-count {
-            font-size: 14px;
-            opacity: 0.8;
-        }
-
-        /* Products Grid */
-        .products-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px 40px;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 40px;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-        }
-
-        .product-image {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-        }
-
-        .product-info {
-            padding: 20px;
-        }
-
-        .product-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 12px;
-            height: 48px;
-            overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-        }
-
-        .product-prices {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .current-price {
-            font-size: 24px;
-            font-weight: bold;
-            color: #27ae60;
-        }
-
-        .old-price {
-            font-size: 16px;
-            text-decoration: line-through;
-            color: #95a5a6;
-        }
-
-        .discount-badge {
-            background: #e74c3c;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .view-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            width: 100%;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        .view-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .load-more-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px 40px;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            display: block;
-            margin: 0 auto;
-            transition: all 0.3s;
-        }
-
-        .load-more-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .loading, .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-        }
-
-        /* Scroll to Top Button */
-        .scroll-top {
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            background: #667eea;
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s;
-            z-index: 1000;
-        }
-
-        .scroll-top:hover {
-            background: #764ba2;
-            transform: translateY(-5px);
-        }
-
-        .scroll-top.show {
-            display: flex;
-        }
-
-        /* Footer */
-        .footer {
-            background: #2c3e50;
-            color: white;
-            padding: 40px 20px 20px;
-            margin-top: 60px;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .footer-section h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .footer-section p {
-            line-height: 1.8;
-            opacity: 0.9;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: white;
-            text-decoration: none;
-            opacity: 0.9;
-            transition: opacity 0.3s;
-        }
-
-        .footer-links a:hover {
-            opacity: 1;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            opacity: 0.8;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: #2c3e50;
-        }
-
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-                margin-top: -20px;
-            }
-
-            .categories {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 15px;
-            }
-
-            .product-image {
-                height: 200px;
-            }
-
-            .scroll-top {
-                width: 45px;
-                height: 45px;
-                left: 15px;
-                bottom: 15px;
-            }
-        }
-    </style>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -476,214 +31,148 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <!-- Top Bar -->
     <div class="topbar">
         <div class="topbar-content">
-            <span>📞 خدمة العملاء: 201110760081</span>
-            <span>🚚 توصيل سريع لجميع أنحاء المملكة</span>
+            <span>🏅 منتجات أصلية 100% بضمان السوق السعودي</span>
+            <span>📞 تواصل معنا: 201110760081</span>
         </div>
     </div>
 
-    <!-- Header -->
     <header class="header">
         <div class="header-content">
-            <div class="logo">🛍️ السوق السعودي</div>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="السوق السعودي">
+                </a>
+            </div>
             <nav class="nav-links">
                 <a href="index.html">الرئيسية</a>
                 <a href="about.html">من نحن</a>
                 <a href="contact.html">تواصل معنا</a>
-                <a href="https://wa.me/201110760081" class="whatsapp-btn-header" target="_blank">📱 واتساب</a>
+                <a href="https://wa.me/201110760081" class="whatsapp-cta" target="_blank">
+                    <span>اطلب عبر واتساب</span>
+                </a>
             </nav>
-            <button class="mobile-menu-btn">☰</button>
         </div>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
-        <h1>مرحباً بك في السوق السعودي</h1>
-        <p>أفضل العروض والمنتجات الأصلية بأسعار تنافسية</p>
+        <div class="hero-overlay"></div>
+        <img src="hero-banner.png" alt="Saudi Luxe Store" class="hero-image">
+        <div class="hero-content">
+            <h1>فخامة التسوق السعودي</h1>
+            <p>اكتشف تشكيلة واسعة من المنتجات المختارة بعناية لتناسب ذوقك الرفيع، مع خدمة توصيل سريعة لكل مدن المملكة.</p>
+        </div>
     </section>
 
-    <!-- Stats -->
-    <div class="stats">
-        <div class="stat-card">
-            <div class="stat-number">2188</div>
-            <div class="stat-label">منتج متنوع</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">35%</div>
-            <div class="stat-label">متوسط التخفيض</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">24/7</div>
-            <div class="stat-label">خدمة العملاء</div>
-        </div>
-    </div>
-
     <!-- Categories Section -->
-    <div class="categories-section">
-        <h2 class="section-title">تصفح حسب الفئة</h2>
-        <div class="categories">
-            <div class="category-card active" data-category="all">
-                <div class="category-icon">🛍️</div>
-                <div class="category-name">جميع المنتجات</div>
-                <div class="category-count">2188 منتج</div>
+    <div style="max-width: 1200px; margin: 60px auto 20px; padding: 0 20px;">
+        <h2 style="font-size: 2rem; border-right: 5px solid var(--primary-color); padding-right: 15px; margin-bottom: 30px;">تسوق حسب الفئة</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px;">
+            <div class="category-item active" style="background: white; padding: 25px; border-radius: 12px; text-align: center; cursor: pointer; transition: var(--transition); border: 2px solid var(--primary-color); background: rgba(0, 108, 53, 0.05);" data-category="all">
+                <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">🛍️</span>
+                <strong style="color: var(--primary-color);">الكل</strong>
             </div>
-            <div class="category-card" data-category="beauty">
-                <div class="category-icon">💄</div>
-                <div class="category-name">العناية بالجمال</div>
-                <div class="category-count" id="count-beauty">جاري الحساب...</div>
+            <div class="category-item" style="background: white; padding: 25px; border-radius: 12px; text-align: center; cursor: pointer; transition: var(--transition); border: 1px solid #efefef;" data-category="beauty">
+                <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">💅</span>
+                <strong>الجمال</strong>
             </div>
-            <div class="category-card" data-category="health">
-                <div class="category-icon">🏥</div>
-                <div class="category-name">الصحة والعافية</div>
-                <div class="category-count" id="count-health">جاري الحساب...</div>
+            <div class="category-item" style="background: white; padding: 25px; border-radius: 12px; text-align: center; cursor: pointer; transition: var(--transition); border: 1px solid #efefef;" data-category="health">
+                <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">🩺</span>
+                <strong>الصحة</strong>
             </div>
-            <div class="category-card" data-category="electronics">
-                <div class="category-icon">⚡</div>
-                <div class="category-name">الإلكترونيات</div>
-                <div class="category-count" id="count-electronics">جاري الحساب...</div>
+            <div class="category-item" style="background: white; padding: 25px; border-radius: 12px; text-align: center; cursor: pointer; transition: var(--transition); border: 1px solid #efefef;" data-category="electronics">
+                <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">💻</span>
+                <strong>الإلكترونيات</strong>
             </div>
-            <div class="category-card" data-category="home">
-                <div class="category-icon">🏠</div>
-                <div class="category-name">المنزل والأدوات</div>
-                <div class="category-count" id="count-home">جاري الحساب...</div>
-            </div>
-            <div class="category-card" data-category="fashion">
-                <div class="category-icon">👗</div>
-                <div class="category-name">الأزياء والموضة</div>
-                <div class="category-count" id="count-fashion">جاري الحساب...</div>
+            <div class="category-item" style="background: white; padding: 25px; border-radius: 12px; text-align: center; cursor: pointer; transition: var(--transition); border: 1px solid #efefef;" data-category="home">
+                <span style="font-size: 2.5rem; display: block; margin-bottom: 10px;">🏡</span>
+                <strong>المنزل</strong>
             </div>
         </div>
     </div>
 
-    <!-- Products Container -->
-    <div class="products-container">
-        <div class="products-grid" id="productsGrid"></div>
-        <div class="loading" id="loading">جاري تحميل المنتجات...</div>
-        <div class="no-results" id="noResults" style="display: none;">
-            <h3>لم يتم العثور على نتائج</h3>
-            <p>جرب البحث بكلمات مختلفة</p>
+    <div class="container" style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
+        <div id="productsGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px;">
+            <!-- Content loaded via JS -->
         </div>
-        <button class="load-more-btn" id="loadMoreBtn" style="display: none;">تحميل المزيد</button>
+        
+        <div id="loading" style="text-align: center; padding: 100px 0; font-size: 1.2rem; color: #666;">
+            جاري تهيئة تجربة التسوق...
+        </div>
+
+        <button id="loadMoreBtn" style="display: none; margin: 60px auto; padding: 18px 60px; background: var(--primary-color); color: white; border: none; border-radius: 50px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: var(--transition); box-shadow: 0 10px 20px rgba(0, 108, 53, 0.2);">
+            اكتشف المزيد من الخيارات
+        </button>
     </div>
 
-    <!-- Scroll to Top Button -->
-    <div class="scroll-top" id="scrollTop">↑</div>
-
-    <!-- Footer -->
-    <footer class="footer">
+    <footer>
         <div class="footer-content">
             <div class="footer-section">
                 <h3>عن السوق السعودي</h3>
-                <p>متجرك الإلكتروني الموثوق لأفضل المنتجات الأصلية بأسعار تنافسية. نوفر توصيل سريع ومجاني لجميع أنحاء المملكة العربية السعودية.</p>
+                <p>نحن منصة تسوق سعودية رائدة تهدف لتوفير أفضل المنتجات العالمية والمحلية في مكان واحد، مع ضمان الجودة وسرعة التوصيل.</p>
             </div>
-
             <div class="footer-section">
                 <h3>روابط سريعة</h3>
-                <ul class="footer-links">
-                    <li><a href="index.html">الرئيسية</a></li>
-                    <li><a href="about.html">من نحن</a></li>
-                    <li><a href="contact.html">تواصل معنا</a></li>
-                    <li><a href="https://wa.me/201110760081" target="_blank">📱 واتساب</a></li>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 12px;"><a href="index.html" style="color: #ccc; text-decoration: none; transition: var(--transition);">الرئيسية</a></li>
+                    <li style="margin-bottom: 12px;"><a href="about.html" style="color: #ccc; text-decoration: none; transition: var(--transition);">من نحن</a></li>
+                    <li style="margin-bottom: 12px;"><a href="shipping.html" style="color: #ccc; text-decoration: none; transition: var(--transition);">سياسة الشحن</a></li>
                 </ul>
             </div>
-
             <div class="footer-section">
-                <h3>السياسات</h3>
-                <ul class="footer-links">
-                    <li><a href="privacy.html">سياسة الخصوصية</a></li>
-                    <li><a href="terms.html">الشروط والأحكام</a></li>
-                    <li><a href="shipping.html">سياسة الشحن</a></li>
-                    <li><a href="return-policy.html">سياسة الإرجاع</a></li>
-                </ul>
+                <h3>تواصل معنا</h3>
+                <p>المملكة العربية السعودية، الرياض</p>
+                <p style="margin-top: 10px; color: var(--accent-color); font-weight: bold;">واتساب: 201110760081</p>
             </div>
         </div>
-
         <div class="footer-bottom">
-            <p>&copy; 2025 السوق السعودي. جميع الحقوق محفوظة.</p>
+            <p>جميع الحقوق محفوظة &copy; 2026 السوق السعودي - فخامة التسوق بين يديك</p>
         </div>
     </footer>
 
     <script>
-        const PRODUCTS_PER_PAGE = 20;
+        const PRODUCTS_PER_PAGE = 24;
         let allProducts = [];
         let displayedProducts = [];
-        let currentCategory = 'all';
         let displayCount = PRODUCTS_PER_PAGE;
 
-        // Category mappings
-        const CATEGORY_MAPPINGS = {
-            beauty: {
-                keywords: ['شعر', 'بشرة', 'كريم', 'سيروم', 'ماسك', 'واقي', 'مرطب', 'تفتيح', 'شامبو', 'بلسم', 'زيت', 'صبغة', 'رموش', 'حواجب', 'مكياج', 'عطور', 'تجميل']
-            },
-            health: {
-                keywords: ['فيتامين', 'مكمل', 'كبسولات', 'حبوب', 'علاج', 'صحة', 'طبي', 'عضلات', 'ركبة', 'كاحل', 'مساج', 'تدليك', 'ضغط', 'قياس']
-            },
-            electronics: {
-                keywords: ['جهاز', 'ماكينة', 'آلة', 'كهربائي', 'قابل للشحن', 'ليزر', 'حلاقة', 'فرشاة', 'مجفف', 'تمويج', 'فرد']
-            },
-            home: {
-                keywords: ['منزل', 'مطبخ', 'وسادة', 'مقعد', 'خياطة', 'تنظيف', 'أدوات']
-            },
-            fashion: {
-                keywords: ['مشد', 'ملابس', 'شورت', 'قميص', 'ساعة', 'شماغ', 'عقال', 'إكسسوارات']
-            }
-        };
-
-        function categorizeProduct(title) {
-            const titleLower = title.toLowerCase();
-            for (const [key, cat] of Object.entries(CATEGORY_MAPPINGS)) {
-                if (cat.keywords.some(keyword => titleLower.includes(keyword))) {
-                    return key;
-                }
-            }
-            return 'home';
-        }
-
         function createSlug(product) {
-            let titlePart = product.title.substring(0, 80).trim().replace(/ /g, '-');
-            titlePart = titlePart.replace(/[<>:"/\|?*+()]/g, '');
-            return `${product.id}-${titlePart}`;
+            const stopWords = ['من', 'في', 'على', 'الى', 'عن', 'و', 'مع', 'يا', 'أيها'];
+            let title = product.title;
+            stopWords.forEach(word => { title = title.replace(new RegExp(` ${word} `, 'g'), ' '); });
+            let slug = title.toLowerCase().trim()
+                .replace(/[^\w\s\u0600-\u06FF-]/g, '')
+                .replace(/\s+/g, '-');
+            if (slug.length > 100) slug = slug.substring(0, 100).replace(/-$/, '');
+            return `${product.id}-${slug}`;
         }
 
         function renderProducts() {
             const grid = document.getElementById('productsGrid');
             const loading = document.getElementById('loading');
-            const noResults = document.getElementById('noResults');
             const loadMoreBtn = document.getElementById('loadMoreBtn');
 
             loading.style.display = 'none';
+            const items = displayedProducts.slice(0, displayCount);
 
-            const productsToShow = displayedProducts.slice(0, displayCount);
-
-            if (productsToShow.length === 0) {
-                grid.innerHTML = '';
-                noResults.style.display = 'block';
-                loadMoreBtn.style.display = 'none';
-                return;
-            }
-
-            noResults.style.display = 'none';
-            grid.innerHTML = productsToShow.map(product => {
-                const discount = product.price - product.sale_price;
-                const discountPercentage = Math.round((discount / product.price) * 100);
+            grid.innerHTML = items.map(product => {
+                const discount = Math.round(((product.price - product.sale_price) / product.price) * 100);
                 const slug = createSlug(product);
-                const productUrl = `products/${slug}.html`;
-
                 return `
-                    <div class="product-card" onclick="window.open('${productUrl}', '_blank')">
-                        <img src="${product.image_link}" alt="${product.title}" class="product-image" loading="lazy">
+                    <div class="product-card" onclick="location.href='products/${slug}.html'">
+                        <div class="product-image-wrapper">
+                            <img src="${product.image_link}" alt="${product.title}" class="product-image" loading="lazy">
+                            <span class="product-badge">خصم ${discount}%</span>
+                        </div>
                         <div class="product-info">
                             <h3 class="product-title">${product.title}</h3>
-                            <div class="product-prices">
-                                <span class="current-price">${product.sale_price} ر.س</span>
-                                <span class="old-price">${product.price} ر.س</span>
+                            <div class="product-price-row">
+                                <span class="price-current">${product.sale_price} ر.س</span>
+                                <span class="price-old">${product.price} ر.س</span>
                             </div>
-                            <span class="discount-badge">-${discountPercentage}%</span>
-                            <button class="view-btn" onclick="event.stopPropagation(); window.open('${productUrl}', '_blank')">
-                                👁️ شاهد المزيد
-                            </button>
+                            <a href="products/${slug}.html" class="buy-button">📦 عرض التفاصيل</a>
                         </div>
                     </div>
                 `;
@@ -692,66 +181,46 @@
             loadMoreBtn.style.display = displayedProducts.length > displayCount ? 'block' : 'none';
         }
 
-        function filterByCategory(category) {
-            currentCategory = category;
-            displayCount = PRODUCTS_PER_PAGE;
-
-            document.querySelectorAll('.category-card').forEach(card => {
-                card.classList.remove('active');
-                if (card.dataset.category === category) {
-                    card.classList.add('active');
-                }
-            });
-
-            if (category === 'all') {
-                displayedProducts = [...allProducts];
-            } else {
-                displayedProducts = allProducts.filter(p => categorizeProduct(p.title) === category);
-            }
-
-            renderProducts();
-        }
-
-        function updateCategoryCounts() {
-            const counts = {
-                beauty: 0,
-                health: 0,
-                electronics: 0,
-                home: 0,
-                fashion: 0
-            };
-
-            allProducts.forEach(product => {
-                const category = categorizeProduct(product.title);
-                if (counts[category] !== undefined) {
-                    counts[category]++;
-                }
-            });
-
-            Object.keys(counts).forEach(key => {
-                const el = document.getElementById(`count-${key}`);
-                if (el) el.textContent = `${counts[key]} منتج`;
-            });
-        }
-
-        async function loadProducts() {
+        async function init() {
             try {
-                const response = await fetch('products.json');
-                const data = await response.json();
-                allProducts = data;
+                const res = await fetch('products.json');
+                allProducts = await res.json();
                 displayedProducts = [...allProducts];
-                updateCategoryCounts();
                 renderProducts();
-            } catch (error) {
-                console.error('Error loading products:', error);
-                document.getElementById('loading').textContent = 'حدث خطأ في تحميل المنتجات';
+            } catch (e) {
+                console.error(e);
+                document.getElementById('loading').innerText = 'تعذر تحميل المنتجات حالياً.';
             }
         }
 
-        // Event listeners
-        document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('click', () => {
-                filterByCategory(card.dataset.category);
+        document.querySelectorAll('.category-item').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-item').forEach(b => {
+                    b.classList.remove('active');
+                    b.style.borderColor = '#efefef';
+                    b.style.background = 'white';
+                    b.style.boxShadow = 'none';
+                    b.querySelector('strong').style.color = 'inherit';
+                });
+                btn.classList.add('active');
+                btn.style.borderColor = 'var(--primary-color)';
+                btn.style.background = 'rgba(0, 108, 53, 0.05)';
+                btn.querySelector('strong').style.color = 'var(--primary-color)';
+                
+                const cat = btn.dataset.category;
+                if(cat === 'all') {
+                    displayedProducts = [...allProducts];
+                } else {
+                    const cats = {
+                        beauty: ['شعر', 'بشرة', 'كريم', 'جمال', 'زيت', 'تجميل'],
+                        health: ['صحة', 'عافية', 'طب', 'علاج', 'مكمل'],
+                        electronics: ['جهاز', 'كهرباء', 'آلة', 'ساعة', 'سماعة'],
+                        home: ['منزل', 'مطبخ', 'تنظيف']
+                    };
+                    displayedProducts = allProducts.filter(p => cats[cat]?.some(k => p.title.includes(k)));
+                }
+                displayCount = PRODUCTS_PER_PAGE;
+                renderProducts();
             });
         });
 
@@ -760,22 +229,7 @@
             renderProducts();
         });
 
-        // Scroll to top
-        const scrollTopBtn = document.getElementById('scrollTop');
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollTopBtn.classList.add('show');
-            } else {
-                scrollTopBtn.classList.remove('show');
-            }
-        });
-
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        // Load products on page load
-        loadProducts();
+        init();
     </script>
 </body>
 </html>
