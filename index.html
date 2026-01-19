@@ -489,9 +489,9 @@
         <div class="header-content">
             <div class="logo">🛍️ السوق السعودي</div>
             <nav class="nav-links">
-                <a href="/">الرئيسية</a>
-                <a href="/about.html">من نحن</a>
-                <a href="/contact.html">تواصل معنا</a>
+                <a href="index.html">الرئيسية</a>
+                <a href="about.html">من نحن</a>
+                <a href="contact.html">تواصل معنا</a>
                 <a href="https://wa.me/201110760081" class="whatsapp-btn-header" target="_blank">📱 واتساب</a>
             </nav>
             <button class="mobile-menu-btn">☰</button>
@@ -582,9 +582,9 @@
             <div class="footer-section">
                 <h3>روابط سريعة</h3>
                 <ul class="footer-links">
-                    <li><a href="/">الرئيسية</a></li>
-                    <li><a href="/about.html">من نحن</a></li>
-                    <li><a href="/contact.html">تواصل معنا</a></li>
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="about.html">من نحن</a></li>
+                    <li><a href="contact.html">تواصل معنا</a></li>
                     <li><a href="https://wa.me/201110760081" target="_blank">📱 واتساب</a></li>
                 </ul>
             </div>
@@ -592,10 +592,10 @@
             <div class="footer-section">
                 <h3>السياسات</h3>
                 <ul class="footer-links">
-                    <li><a href="/privacy.html">سياسة الخصوصية</a></li>
-                    <li><a href="/terms.html">الشروط والأحكام</a></li>
-                    <li><a href="/shipping.html">سياسة الشحن</a></li>
-                    <li><a href="/return-policy.html">سياسة الإرجاع</a></li>
+                    <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                    <li><a href="terms.html">الشروط والأحكام</a></li>
+                    <li><a href="shipping.html">سياسة الشحن</a></li>
+                    <li><a href="return-policy.html">سياسة الإرجاع</a></li>
                 </ul>
             </div>
         </div>
@@ -736,7 +736,7 @@
 
         async function loadProducts() {
             try {
-                const response = await fetch('/products.json');
+                const response = await fetch('products.json');
                 const data = await response.json();
                 allProducts = data;
                 displayedProducts = [...allProducts];
