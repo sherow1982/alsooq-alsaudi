@@ -1,384 +1,174 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سياسة الشحن | السوق السعودي</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            direction: rtl;
-            background: #f8f9fa;
-            color: #333;
-            line-height: 1.8;
-        }
-
-        .topbar {
-            background: #2c3e50;
-            color: white;
-            padding: 10px 0;
-            font-size: 13px;
-        }
-
-        .topbar-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .header {
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .back-btn {
-            background: #3498db;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .back-btn:hover {
-            background: #2980b9;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 40px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            font-size: 36px;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 24px;
-            color: #2c3e50;
-            margin: 30px 0 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #27ae60;
-        }
-
-        p {
-            margin-bottom: 15px;
-            font-size: 16px;
-            color: #555;
-        }
-
-        ul {
-            margin-right: 30px;
-            margin-bottom: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-            color: #555;
-        }
-
-        .highlight-box {
-            background: #d4edda;
-            border-right: 4px solid #27ae60;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .feature-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            color: white;
-        }
-
-        .feature-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
-        .feature-title {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .feature-text {
-            font-size: 14px;
-            opacity: 0.95;
-        }
-
-        .timeline {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 8px;
-            margin: 30px 0;
-        }
-
-        .timeline-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .timeline-item:last-child {
-            border-bottom: none;
-        }
-
-        .timeline-icon {
-            font-size: 32px;
-            margin-left: 15px;
-            flex-shrink: 0;
-        }
-
-        .timeline-content h3 {
-            font-size: 18px;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-
-        .timeline-content p {
-            font-size: 14px;
-            color: #666;
-            margin: 0;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 20px;
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 28px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
     <div class="topbar">
         <div class="topbar-content">
-            <span>📞 خدمة العملاء: 201110760081</span>
-            <span>🚚 توصيل سريع لجميع أنحاء المملكة</span>
+            <div class="topbar-left">
+                <span>🏅 منتجات أصلية 100% بضمان السوق السعودي</span>
+            </div>
+            <div class="topbar-right">
+                <span>📞 خدمة العملاء: 201110760081</span>
+            </div>
         </div>
     </div>
 
     <header class="header">
         <div class="header-content">
-            <div class="logo">🛍️ السوق السعودي</div>
-            <a href="index.html" class="back-btn">← العودة للرئيسية</a>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="السوق السعودي">
+                </a>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="about.html">من نحن</a>
+                <a href="contact.html">تواصل معنا</a>
+                <a href="https://wa.me/201110760081" class="whatsapp-cta" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.012c.109.006.252-.041.397.308.145.348.499 1.223.541 1.312.041.089.068.191.008.312-.06.121-.09.197-.181.302-.09.105-.19.235-.272.316-.09.09-.184.188-.079.365.105.177.465.766.997 1.239.685.611 1.26.802 1.437.89.177.089.282.075.387-.041.105-.116.443-.518.562-.695.119-.177.239-.148.405-.087.166.061 1.054.497 1.234.587s.3.135.344.209c.044.075.044.436-.1.841z" />
+                    </svg>
+                    <span>اطلب عبر واتساب</span>
+                </a>
+            </nav>
         </div>
     </header>
 
-    <div class="container">
-        <h1>سياسة الشحن والتوصيل</h1>
+    <div class="container"
+        style="max-width: 900px; margin: 60px auto; padding: 40px; background: white; border-radius: 12px; box-shadow: var(--shadow-md);">
+        <h1 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 20px; text-align: center;">سياسة الشحن
+            والتوصيل</h1>
 
-        <div class="highlight-box">
-            <h3 style="margin-bottom: 10px; color: #27ae60;">🎁 شحن مجاني لجميع الطلبات</h3>
-            <p style="margin: 0; color: #155724;">نوفر شحن مجاني لجميع الطلبات في كافة أنحاء المملكة العربية السعودية بدون حد أدنى للطلب!</p>
+        <div
+            style="background: rgba(0, 163, 80, 0.1); border-right: 5px solid var(--accent-color); padding: 25px; margin: 30px 0; border-radius: 12px;">
+            <h3 style="margin-bottom: 10px; color: var(--primary-color);">🎁 شحن مجاني لجميع الطلبات</h3>
+            <p style="margin: 0;">نوفر شحن مجاني لجميع الطلبات في كافة أنحاء المملكة العربية السعودية بدون حد أدنى
+                للطلب!</p>
         </div>
 
-        <div class="feature-grid">
-            <div class="feature-card">
-                <div class="feature-icon">📦</div>
-                <div class="feature-title">شحن مجاني</div>
-                <div class="feature-text">لجميع أنحاء المملكة</div>
+        <div
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0;">
+            <div
+                style="background: #fdfdfd; padding: 25px; border-radius: 12px; text-align: center; border: 1px solid #eee;">
+                <div style="font-size: 40px; margin-bottom: 10px;">📦</div>
+                <div style="font-weight: bold; color: var(--primary-color);">شحن مجاني</div>
+                <div style="font-size: 0.85rem; color: #666;">لجميع أنحاء المملكة</div>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <div class="feature-title">توصيل سريع</div>
-                <div class="feature-text">1-3 أيام عمل</div>
+            <div
+                style="background: #fdfdfd; padding: 25px; border-radius: 12px; text-align: center; border: 1px solid #eee;">
+                <div style="font-size: 40px; margin-bottom: 10px;">⚡</div>
+                <div style="font-weight: bold; color: var(--primary-color);">توصيل سريع</div>
+                <div style="font-size: 0.85rem; color: #666;">1-3 أيام عمل</div>
             </div>
 
-            <div class="feature-card">
-                <div class="feature-icon">📍</div>
-                <div class="feature-title">تغطية شاملة</div>
-                <div class="feature-text">جميع مدن وقرى المملكة</div>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🔔</div>
-                <div class="feature-title">إشعارات فورية</div>
-                <div class="feature-text">تحديثات عبر واتساب</div>
+            <div
+                style="background: #fdfdfd; padding: 25px; border-radius: 12px; text-align: center; border: 1px solid #eee;">
+                <div style="font-size: 40px; margin-bottom: 10px;">📍</div>
+                <div style="font-weight: bold; color: var(--primary-color);">تغطية شاملة</div>
+                <div style="font-size: 0.85rem; color: #666;">جميع مدن المملكة</div>
             </div>
         </div>
 
-        <h2>مدة التوصيل</h2>
+        <h2
+            style="font-size: 1.8rem; color: var(--primary-color); margin: 30px 0 15px; border-right: 4px solid var(--accent-color); padding-right: 15px;">
+            مدة التوصيل</h2>
         <p>نلتزم بتوصيل طلبك في أسرع وقت ممكن:</p>
-        <ul>
-            <li><strong>المدن الرئيسية:</strong> 1-2 يوم عمل (الرياض، جدة، الدمام، مكة، المدينة)</li>
-            <li><strong>المدن الأخرى:</strong> 2-3 أيام عمل</li>
-            <li><strong>المناطق النائية:</strong> قد تستغرق حتى 3 أيام عمل</li>
+        <ul style="margin-right: 25px; margin-bottom: 20px;">
+            <li style="margin-bottom: 10px;"><strong>المدن الرئيسية:</strong> 1-2 يوم عمل (الرياض، جدة، الدمام، مكة،
+                المدينة)</li>
+            <li style="margin-bottom: 10px;"><strong>المدن الأخرى:</strong> 2-3 أيام عمل</li>
+            <li style="margin-bottom: 10px;"><strong>المناطق النائية:</strong> قد تستغرق حتى 3 أيام عمل</li>
         </ul>
 
-        <div class="highlight-box">
-            <strong>ملاحظة:</strong> أيام العمل هي من السبت إلى الخميس. الطلبات المقدمة خلال نهاية الأسبوع أو العطلات الرسمية يتم معالجتها في يوم العمل التالي.
+        <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px dashed #ddd; margin: 20px 0;">
+            <strong>ملاحظة:</strong> أيام العمل هي من السبت إلى الخميس. الطلبات المقدمة خلال نهاية الأسبوع يتم معالجتها
+            في يوم العمل التالي.
         </div>
 
-        <h2>مراحل الشحن</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-icon">📝</div>
-                <div class="timeline-content">
-                    <h3>1. تأكيد الطلب</h3>
-                    <p>سنتواصل معك عبر واتساب لتأكيد تفاصيل الطلب والعنوان</p>
+        <h2
+            style="font-size: 1.8rem; color: var(--primary-color); margin: 30px 0 15px; border-right: 4px solid var(--accent-color); padding-right: 15px;">
+            مراحل الشحن</h2>
+        <div style="background: #fdfdfd; padding: 30px; border-radius: 12px; border: 1px solid #eee; margin: 30px 0;">
+            <div
+                style="display: flex; gap: 20px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0;">
+                <div style="font-size: 30px;">📝</div>
+                <div>
+                    <h3 style="font-size: 1.1rem; color: var(--primary-color); margin-bottom: 5px;">1. تأكيد الطلب</h3>
+                    <p style="font-size: 0.9rem; color: #666; margin: 0;">سنتواصل معك عبر واتساب لتأكيد تفاصيل الطلب</p>
                 </div>
             </div>
-
-            <div class="timeline-item">
-                <div class="timeline-icon">📦</div>
-                <div class="timeline-content">
-                    <h3>2. تجهيز الطلب</h3>
-                    <p>يتم تجهيز وتغليف طلبك بعناية فائقة لضمان وصوله بحالة ممتازة</p>
+            <div
+                style="display: flex; gap: 20px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0;">
+                <div style="font-size: 30px;">🚚</div>
+                <div>
+                    <h3 style="font-size: 1.1rem; color: var(--primary-color); margin-bottom: 5px;">2. الشحن والتتبع
+                    </h3>
+                    <p style="font-size: 0.9rem; color: #666; margin: 0;">يتم شحن الطلب مع إرسال رابط تتبع مباشر</p>
                 </div>
             </div>
-
-            <div class="timeline-item">
-                <div class="timeline-icon">🚚</div>
-                <div class="timeline-content">
-                    <h3>3. الشحن</h3>
-                    <p>يتم شحن الطلب عبر شركات الشحن الموثوقة مع رابط تتبع</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-icon">📍</div>
-                <div class="timeline-content">
-                    <h3>4. في الطريق</h3>
-                    <p>يمكنك تتبع طلبك عبر الرابط المرسل. سنتواصل معك قبل التوصيل</p>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-icon">✅</div>
-                <div class="timeline-content">
-                    <h3>5. التوصيل</h3>
-                    <p>استلم طلبك وتأكد من سلامته قبل الدفع (الدفع عند الاستلام)</p>
+            <div style="display: flex; gap: 20px;">
+                <div style="font-size: 30px;">✅</div>
+                <div>
+                    <h3 style="font-size: 1.1rem; color: var(--primary-color); margin-bottom: 5px;">3. الاستلام</h3>
+                    <p style="font-size: 0.9rem; color: #666; margin: 0;">استلم طلبك وتأكد منه قبل الدفع (الدفع عند
+                        الاستلام)</p>
                 </div>
             </div>
         </div>
 
-        <h2>المناطق المغطاة</h2>
-        <p>نوفر خدمة التوصيل لجميع مناطق المملكة العربية السعودية:</p>
-        <ul>
-            <li>منطقة الرياض (جميع الأحياء والمدن)</li>
-            <li>منطقة مكة المكرمة (جدة، مكة، الطائف، وجميع المحافظات)</li>
-            <li>المنطقة الشرقية (الدمام، الخبر، الجبيل، الأحساء)</li>
-            <li>منطقة المدينة المنورة (المدينة، ينبع، العلا)</li>
-            <li>منطقة القصيم (بريدة، عنيزة، الرس)</li>
-            <li>منطقة عسير (أبها، خميس مشيط)</li>
-            <li>منطقة تبوك</li>
-            <li>منطقة حائل</li>
-            <li>منطقة الحدود الشمالية</li>
-            <li>منطقة جازان</li>
-            <li>منطقة نجران</li>
-            <li>منطقة الباحة</li>
-            <li>منطقة الجوف</li>
-        </ul>
-
-        <h2>تتبع الطلب</h2>
-        <p>نوفر لك إمكانية تتبع طلبك بسهولة:</p>
-        <ul>
-            <li>سنرسل لك رابط تتبع الشحنة عبر واتساب فور شحن الطلب</li>
-            <li>يمكنك معرفة موقع طلبك بالضبط في أي وقت</li>
-            <li>ستصلك إشعارات فورية عند كل مرحلة من مراحل الشحن</li>
-            <li>سنتواصل معك قبل التوصيل لتحديد الوقت المناسب</li>
-        </ul>
-
-        <h2>استلام الطلب</h2>
-        <p><strong>عند وصول الطلب:</strong></p>
-        <ol style="margin-right: 30px;">
-            <li>تأكد من أن الطرد سليم وغير تالف من الخارج</li>
-            <li>افتح الطرد أمام مندوب التوصيل</li>
-            <li>تأكد من أن المنتج مطابق للطلب وبحالة جيدة</li>
-            <li>في حالة وجود أي مشكلة، لا تستلم الطلب وتواصل معنا فوراً</li>
-            <li>ادفع المبلغ المستحق عند التأكد من سلامة المنتج</li>
-        </ol>
-
-        <h2>التوصيل الفاشل</h2>
-        <p>في حالة عدم التمكن من التوصيل:</p>
-        <ul>
-            <li>سيتم التواصل معك لإعادة جدولة موعد التوصيل</li>
-            <li>يتم الاحتفاظ بالطلب لمدة 3 أيام</li>
-            <li>بعد 3 محاولات فاشلة، قد يتم إلغاء الطلب وإعادته</li>
-            <li>يرجى التأكد من صحة رقم الهاتف والعنوان المقدم</li>
-        </ul>
-
-        <h2>سياسة التأخير</h2>
-        <p>في الحالات النادرة التي يحدث فيها تأخير:</p>
-        <ul>
-            <li>سنبلغك فوراً بسبب التأخير</li>
-            <li>سنوفر لك موعد توصيل جديد</li>
-            <li>لديك الحق في إلغاء الطلب بدون أي رسوم</li>
-        </ul>
-
-        <h2>نصائح مهمة</h2>
-        <div class="highlight-box">
-            <ul style="margin: 0;">
-                <li>تأكد من تقديم عنوان دقيق ومفصل</li>
-                <li>اذكر علامات مميزة لتسهيل الوصول</li>
-                <li>كن متاحاً على رقم الهاتف المقدم</li>
-                <li>تحقق من المنتج قبل الدفع</li>
-                <li>احتفظ بصور الطرد في حالة وجود تلف</li>
-            </ul>
-        </div>
-
-        <h2>التواصل</h2>
-        <p>لأي استفسارات حول الشحن والتوصيل:</p>
-        <ul>
-            <li>واتساب: +20 111 076 0081</li>
-            <li>نحن متاحون 24/7 لخدمتك</li>
-        </ul>
-
-        <p style="text-align: center; margin-top: 40px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white;">
+        <p
+            style="text-align: center; margin-top: 40px; padding: 25px; background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%); border-radius: 12px; color: white;">
             <strong>نلتزم بتوصيل طلبك في الوقت المحدد وبأفضل حالة ممكنة! 🚀</strong>
         </p>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>عن السوق السعودي</h3>
+                <p>نحن وجهتك الأولى لتسوق أفضل المنتجات الأصلية في المملكة، نجمع بين الجودة والفخامة وخدمة التوصيل
+                    السريع لضمان أفضل تجربة تسوق.</p>
+            </div>
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="about.html">من نحن</a></li>
+                    <li><a href="contact.html">تواصل معنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>السياسات القانونية</h3>
+                <ul class="footer-links">
+                    <li><a href="shipping.html">سياسة الشحن</a></li>
+                    <li><a href="return-policy.html">سياسة الإرجاع</a></li>
+                    <li><a href="terms.html">الشروط والأحكام</a></li>
+                    <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>تواصل معنا</h3>
+                <p>مؤسسة alsooq-alsaudi</p>
+                <p>المملكة العربية السعودية، السعودية</p>
+                <p>الرياض 12211</p>
+                <p style="margin-top: 15px; color: var(--accent-color); font-weight: bold; font-size: 1.1rem;">واتساب:
+                    +201110760081</p>
+                <p style="margin-top: 5px; font-size: 0.9rem;">البريد: sherow1982@gmail.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة &copy; 2026 السوق السعودي - فخامة التسوق بين يديك</p>
+        </div>
+    </footer>
 </body>
+
 </html>

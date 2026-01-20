@@ -1,13 +1,12 @@
 User-agent: *
 Allow: /
-Allow: /products/
-Allow: /index.html
-
-Sitemap: https://sherow1982.github.io/alsooq-alsaudi/sitemap.xml
-
-# Crawl-delay
-Crawl-delay: 1
-
-# Disallow admin paths (if any)
 Disallow: /admin/
 Disallow: /*.json$
+Disallow: /tmp/
+Disallow: /.gemini/
+
+# Crawl-delay for aggressive bots
+Crawl-delay: 1
+
+# Professional Sitemap
+Sitemap: https://sherow1982.github.io/alsooq-alsaudi/sitemap.xml

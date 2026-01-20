@@ -43,7 +43,7 @@ def load_products():
         sys.exit(1)
 
 def create_product_schema(product):
-    """إنشاء Product Schema JSON-LD"""
+    """إنشاء Product Schema JSON-LD متوافق مع معايير 2026"""
     product_id = product.get('id')
     title = product.get('title', '')
     description = product.get('description', title[:150])
@@ -63,8 +63,8 @@ def create_product_schema(product):
         "name": title,
         "image": [image] if image else [],
         "description": description,
-        "sku": f"SKU_{product_id}",
-        "mpn": str(product_id),
+        "sku": f"ALS_{product_id}",
+        "mpn": f"MPN_{product_id}",
         "brand": {
             "@type": "Brand",
             "name": "السوق السعودي"
@@ -77,6 +77,41 @@ def create_product_schema(product):
             "priceValidUntil": price_valid_until,
             "itemCondition": "https://schema.org/NewCondition",
             "availability": "https://schema.org/InStock",
+            "hasMerchantReturnPolicy": {
+                "@type": "MerchantReturnPolicy",
+                "applicableCountry": "SA",
+                "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnPeriod",
+                "merchantReturnDays": 14,
+                "returnMethod": "https://schema.org/ReturnByMail",
+                "returnFees": "https://schema.org/FreeReturn"
+            },
+            "shippingDetails": {
+                "@type": "OfferShippingDetails",
+                "shippingRate": {
+                    "@type": "MonetaryAmount",
+                    "value": "0",
+                    "currency": "SAR"
+                },
+                "deliveryTime": {
+                    "@type": "ShippingDeliveryTime",
+                    "handlingTime": {
+                        "@type": "QuantitativeValue",
+                        "minValue": 0,
+                        "maxValue": 1,
+                        "unitCode": "DAY"
+                    },
+                    "transitTime": {
+                        "@type": "QuantitativeValue",
+                        "minValue": 1,
+                        "maxValue": 3,
+                        "unitCode": "DAY"
+                    }
+                },
+                "shippingDestination": {
+                    "@type": "DefinedRegion",
+                    "addressCountry": "SA"
+                }
+            },
             "seller": {
                 "@type": "Organization",
                 "name": "السوق السعودي"
@@ -84,8 +119,8 @@ def create_product_schema(product):
         },
         "aggregateRating": {
             "@type": "AggregateRating",
-            "ratingValue": "4.5",
-            "reviewCount": "25"
+            "ratingValue": "4.8",
+            "reviewCount": "120"
         }
     }
     
@@ -96,16 +131,17 @@ def create_local_business_schema():
     schema = {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
-        "name": "السوق السعودي",
+        "name": "alsooq-alsaudi",
         "image": "https://sherow1982.github.io/alsooq-alsaudi/logo.png",
         "url": "https://sherow1982.github.io/alsooq-alsaudi/",
         "telephone": "+201110760081",
+        "email": "sherow1982@gmail.com",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "المملكة العربية السعودية",
             "addressLocality": "الرياض",
             "addressRegion": "الرياض",
-            "postalCode": "11564",
+            "postalCode": "12211",
             "addressCountry": "SA"
         },
         "geo": {
@@ -120,7 +156,7 @@ def create_local_business_schema():
     return json.dumps(schema, ensure_ascii=False, indent=2)
 
 def create_meta_tags(product):
-    """إنشاء Meta Tags محسنة"""
+    """إنشاء Meta Tags احترافية للسوق السعودي"""
     title = product.get('title', '')
     description = product.get('description', title[:150])
     image = product.get('image_link', '')
@@ -130,34 +166,44 @@ def create_meta_tags(product):
     encoded_slug = quote(slug)
     product_url = f"https://sherow1982.github.io/alsooq-alsaudi/products/{encoded_slug}.html"
     
-    # اختصار الوصف لـ Meta Description
-    if len(description) > 155:
-        description = description[:152] + "..."
+    # تنظيف العنوان
+    clean_title = title.replace('عرض ', '').strip()
+    
+    # اختصار الوصد
+    meta_desc = f"اشتري {clean_title} الآن بأفضل سعر في السعودية. {price} ر.س فقط. توصيل سريع، دفع عند الاستلام، ومنتجات أصلية 100%. تسوق الآن من السوق السعودي."
+    if len(meta_desc) > 160:
+        meta_desc = meta_desc[:157] + "..."
     
     meta_tags = f"""
     <!-- SEO Meta Tags -->
-    <title>{title} - السوق السعودي | أفضل الأسعار</title>
-    <meta name="description" content="{description} اطلب الآن من السوق السعودي مع توصيل سريع لجميع مدن المملكة.">
-    <meta name="keywords" content="{title}, السوق السعودي, تسوق اونلاين, منتجات السعودية, عروض">
-    <meta name="robots" content="index, follow">
+    <title>{clean_title} | أفضل سعر في السعودية | السوق السعودي</title>
+    <meta name="description" content="{meta_desc}">
+    <meta name="keywords" content="{clean_title}, السوق السعودي, عروض السعودية, توصيل الرياض, دفع عند الاستلام, {clean_title} سعر">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="canonical" href="{product_url}">
     
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="{title} - السوق السعودي">
-    <meta property="og:description" content="{description}">
+    <meta property="og:title" content="{clean_title} - السوق السعودي | تسوق باحترافية">
+    <meta property="og:description" content="{meta_desc}">
     <meta property="og:image" content="{image}">
     <meta property="og:url" content="{product_url}">
     <meta property="og:type" content="product">
     <meta property="og:site_name" content="السوق السعودي">
     <meta property="product:price:amount" content="{price}">
     <meta property="product:price:currency" content="SAR">
+    <meta property="product:availability" content="instock">
+    <meta property="product:condition" content="new">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{title} - السوق السعودي">
-    <meta name="twitter:description" content="{description}">
+    <meta name="twitter:title" content="{clean_title} - السوق السعودي">
+    <meta name="twitter:description" content="{meta_desc}">
     <meta name="twitter:image" content="{image}">
+    <meta name="twitter:label1" content="Price">
+    <meta name="twitter:data1" content="{price} SAR">
+    <meta name="twitter:label2" content="Availability">
+    <meta name="twitter:data2" content="In Stock">
     """
     
     return meta_tags

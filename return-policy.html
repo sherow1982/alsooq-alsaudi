@@ -1,488 +1,160 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سياسة الإرجاع والاستبدال | السوق السعودي</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            direction: rtl;
-            background: #f8f9fa;
-            color: #333;
-            line-height: 1.8;
-        }
-
-        .topbar {
-            background: #2c3e50;
-            color: white;
-            padding: 10px 0;
-            font-size: 13px;
-        }
-
-        .topbar-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .header {
-            background: white;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 15px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .back-btn {
-            background: #3498db;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .back-btn:hover {
-            background: #2980b9;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 40px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        h1 {
-            font-size: 36px;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 24px;
-            color: #2c3e50;
-            margin: 30px 0 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e74c3c;
-        }
-
-        h3 {
-            font-size: 18px;
-            color: #2c3e50;
-            margin: 20px 0 10px;
-        }
-
-        p {
-            margin-bottom: 15px;
-            font-size: 16px;
-            color: #555;
-        }
-
-        ul, ol {
-            margin-right: 30px;
-            margin-bottom: 20px;
-        }
-
-        li {
-            margin-bottom: 10px;
-            color: #555;
-        }
-
-        .highlight-box {
-            background: #fff3cd;
-            border-right: 4px solid #ffc107;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-
-        .alert-box {
-            background: #f8d7da;
-            border-right: 4px solid #e74c3c;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-            color: #721c24;
-        }
-
-        .success-box {
-            background: #d4edda;
-            border-right: 4px solid #28a745;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-            color: #155724;
-        }
-
-        .steps-container {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 8px;
-            margin: 30px 0;
-        }
-
-        .step-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #dee2e6;
-        }
-
-        .step-item:last-child {
-            border-bottom: none;
-        }
-
-        .step-number {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 20px;
-            margin-left: 15px;
-            flex-shrink: 0;
-        }
-
-        .step-content h3 {
-            margin-top: 0;
-            color: #2c3e50;
-        }
-
-        .step-content p {
-            margin: 0;
-            color: #666;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: right;
-            border: 1px solid #dee2e6;
-        }
-
-        th {
-            background: #f8f9fa;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        tr:nth-child(even) {
-            background: #f8f9fa;
-        }
-
-        .whatsapp-cta {
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .whatsapp-cta h3 {
-            color: white;
-            margin-bottom: 15px;
-        }
-
-        .whatsapp-cta p {
-            color: white;
-            margin-bottom: 20px;
-        }
-
-        .whatsapp-btn {
-            background: white;
-            color: #25D366;
-            padding: 15px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: bold;
-            display: inline-block;
-            transition: all 0.3s;
-        }
-
-        .whatsapp-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 20px;
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 28px;
-            }
-
-            table {
-                font-size: 14px;
-            }
-
-            th, td {
-                padding: 8px;
-            }
-        }
-    </style>
+    <title>سياسة الإرجاع | السوق السعودي</title>
+    <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
     <div class="topbar">
         <div class="topbar-content">
-            <span>📞 خدمة العملاء: 201110760081</span>
-            <span>🚚 توصيل سريع لجميع أنحاء المملكة</span>
+            <div class="topbar-left">
+                <span>🏅 منتجات أصلية 100% بضمان السوق السعودي</span>
+            </div>
+            <div class="topbar-right">
+                <span>📞 خدمة العملاء: 201110760081</span>
+            </div>
         </div>
     </div>
 
     <header class="header">
         <div class="header-content">
-            <div class="logo">🛍️ السوق السعودي</div>
-            <a href="index.html" class="back-btn">← العودة للرئيسية</a>
+            <div class="logo">
+                <a href="index.html">
+                    <img src="logo.png" alt="السوق السعودي">
+                </a>
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="about.html">من نحن</a>
+                <a href="contact.html">تواصل معنا</a>
+                <a href="https://wa.me/201110760081" class="whatsapp-cta" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.012c.109.006.252-.041.397.308.145.348.499 1.223.541 1.312.041.089.068.191.008.312-.06.121-.09.197-.181.302-.09.105-.19.235-.272.316-.09.09-.184.188-.079.365.105.177.465.766.997 1.239.685.611 1.26.802 1.437.89.177.089.282.075.387-.041.105-.116.443-.518.562-.695.119-.177.239-.148.405-.087.166.061 1.054.497 1.234.587s.3.135.344.209c.044.075.044.436-.1.841z" />
+                    </svg>
+                    <span>اطلب عبر واتساب</span>
+                </a>
+            </nav>
         </div>
     </header>
 
-    <div class="container">
-        <h1>سياسة الإرجاع والاستبدال</h1>
+    <div class="container"
+        style="max-width: 900px; margin: 60px auto; padding: 40px; background: white; border-radius: 12px; box-shadow: var(--shadow-md);">
+        <h1 style="font-size: 2.5rem; color: var(--primary-color); margin-bottom: 20px; text-align: center;">سياسة
+            الإرجاع والاستبدال</h1>
 
-        <p style="text-align: center; color: #666; margin-bottom: 40px;">
-            نحرص على رضاك التام عن مشترياتك. اقرأ سياسة الإرجاع بعناية قبل تقديم طلب الإرجاع.
-        </p>
-
-        <div class="success-box">
+        <div
+            style="background: rgba(40, 167, 69, 0.1); border-right: 5px solid #28a745; padding: 25px; margin: 30px 0; border-radius: 12px;">
             <h3 style="margin-bottom: 10px; color: #155724;">📋 مدة الإرجاع</h3>
-            <p style="margin: 0; color: #155724;"><strong>14 يوم</strong> من تاريخ استلام المنتج</p>
+            <p style="margin: 0;"><strong>14 يوم</strong> من تاريخ استلام المنتج (في حالة عيوب الصناعة والخطأ في الطلب)
+            </p>
         </div>
 
-        <h2>شروط قبول الإرجاع</h2>
-
-        <p><strong>يجب توفر جميع الشروط التالية لقبول طلب الإرجاع:</strong></p>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>الشرط</th>
-                    <th>التفاصيل</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>المدة الزمنية</strong></td>
-                    <td>خلال 14 يوم من تاريخ الاستلام فقط</td>
-                </tr>
-                <tr>
-                    <td><strong>حالة المنتج</strong></td>
-                    <td>يجب أن يكون في حالته الأصلية، غير مستخدم، ولم يتم فتح عبوته</td>
-                </tr>
-                <tr>
-                    <td><strong>العبوة الأصلية</strong></td>
-                    <td>سليمة وغير تالفة مع جميع الملصقات</td>
-                </tr>
-                <tr>
-                    <td><strong>الملحقات</strong></td>
-                    <td>جميع الملحقات والأجزاء موجودة</td>
-                </tr>
-                <tr>
-                    <td><strong>السبب</strong></td>
-                    <td>عيوب الصناعة فقط (يجب إثباتها بالصور)</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h2>حالات قبول الإرجاع</h2>
-
-        <div class="success-box">
-            <p style="margin: 0; color: #155724;"><strong>✅ نقبل الإرجاع في الحالات التالية فقط:</strong></p>
-        </div>
-
-        <ul>
-            <li><strong>عيوب الصناعة:</strong> عيب واضح في التصنيع أو المواد (يجب تقديم صور توضح العيب)</li>
-            <li><strong>منتج مختلف:</strong> استلام منتج مختلف تماماً عن المنتج المطلوب</li>
-            <li><strong>تلف أثناء الشحن:</strong> وصول المنتج تالف بسبب الشحن (يجب إثبات ذلك عند الاستلام)</li>
+        <h2
+            style="font-size: 1.8rem; color: var(--primary-color); margin: 30px 0 15px; border-right: 4px solid var(--accent-color); padding-right: 15px;">
+            شروط قبول الإرجاع</h2>
+        <p>يجب توفر جميع الشروط التالية لقبول طلب الإرجاع:</p>
+        <ul style="margin-right: 25px; margin-bottom: 20px;">
+            <li style="margin-bottom: 10px;"><strong>المدة:</strong> خلال 14 يوم من تاريخ الاستلام.</li>
+            <li style="margin-bottom: 10px;"><strong>الحالة:</strong> يجب أن يكون المنتج في حالته الأصلية، غير مستخدم،
+                وبغلافه الأصلي.</li>
+            <li style="margin-bottom: 10px;"><strong>السبب:</strong> وجود عيب تصنيع أو استلام منتج خاطئ.</li>
         </ul>
 
-        <h2>حالات عدم قبول الإرجاع</h2>
-
-        <div class="alert-box">
-            <p style="margin: 0;"><strong>❌ لا نقبل الإرجاع في الحالات التالية:</strong></p>
+        <div
+            style="background: rgba(220, 53, 69, 0.1); border-right: 5px solid #dc3545; padding: 25px; margin: 30px 0; border-radius: 12px;">
+            <h3 style="margin-bottom: 10px; color: #721c24;">❌ منتجات لا يمكن إرجاعها</h3>
+            <p style="margin: 0;">لأسباب صحية، لا يمكن إرجاع أو استبدال منتجات التجميل، العناية بالبشرة، والمنتجات
+                الشخصية بعد فتحها أو استخدامها نهائياً.</p>
         </div>
 
-        <h3>1. منتجات التجميل والعناية الشخصية</h3>
-        <p><strong>لا يُقبل إرجاعها أو استبدالها نهائياً</strong> لأسباب صحية وسلامة، وتشمل:</p>
-        <ul>
-            <li>منتجات العناية بالبشرة (كريمات، سيروم، لوشن)</li>
-            <li>منتجات العناية بالشعر (شامبو، بلسم، زيوت)</li>
-            <li>مستحضرات التجميل (مكياج، عطور)</li>
-            <li>منتجات العناية الشخصية</li>
-        </ul>
-
-        <h3>2. حالات أخرى غير مقبولة</h3>
-        <ul>
-            <li><strong>المنتجات المستخدمة:</strong> أي منتج تم استخدامه أو فتح عبوته</li>
-            <li><strong>تغيير الرأي:</strong> عدم الإعجاب بالمنتج أو تغيير الرأي بعد الشراء</li>
-            <li><strong>المنتجات المخصصة:</strong> المنتجات المصنوعة حسب الطلب أو المخصصة</li>
-            <li><strong>التلف بسوء الاستخدام:</strong> أي ضرر ناتج عن سوء الاستخدام أو الإهمال</li>
-            <li><strong>انتهاء المدة:</strong> بعد مرور 14 يوم من تاريخ الاستلام</li>
-        </ul>
-
-        <div class="highlight-box">
-            <p style="margin: 0;"><strong>⚠️ تنبيه هام:</strong> لا نقوم بالاستبدال. نقوم بالإرجاع فقط في حالة عيوب الصناعة، ويتم استرداد المبلغ كاملاً بعد فحص المنتج.</p>
-        </div>
-
-        <h2>خطوات طلب الإرجاع</h2>
-
-        <div class="steps-container">
-            <div class="step-item">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h3>التواصل معنا</h3>
-                    <p>تواصل معنا عبر واتساب خلال 14 يوم من تاريخ استلام المنتج</p>
+        <h2
+            style="font-size: 1.8rem; color: var(--primary-color); margin: 30px 0 15px; border-right: 4px solid var(--accent-color); padding-right: 15px;">
+            خطوات طلب الإرجاع</h2>
+        <div style="background: #fdfdfd; padding: 30px; border-radius: 12px; border: 1px solid #eee; margin: 30px 0;">
+            <div
+                style="display: flex; gap: 20px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0;">
+                <div
+                    style="background: var(--primary-color); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">
+                    1</div>
+                <div>
+                    <h3 style="font-size: 1.1rem; color: var(--primary-color); margin-bottom: 5px;">تواصل عبر واتساب
+                    </h3>
+                    <p style="font-size: 0.9rem; color: #666; margin: 0;">أرسل لنا رقم الطلب وصورة المنتج والعيب الموجود
+                    </p>
                 </div>
             </div>
-
-            <div class="step-item">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h3>شرح السبب وإرفاق الصور</h3>
-                    <p>اشرح سبب الإرجاع بوضوح وأرفق صور واضحة للمنتج والعيب (إن وجد) والعبوة</p>
+            <div
+                style="display: flex; gap: 20px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #f0f0f0;">
+                <div
+                    style="background: var(--primary-color); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">
+                    2</div>
+                <div>
+                    <h3 style="font-size: 1.1rem; color: var(--primary-color); margin-bottom: 5px;">فحص الطلب</h3>
+                    <p style="font-size: 0.9rem; color: #666; margin: 0;">سيقوم فريقنا بمراجعة الصور والرد عليك خلال 24
+                        ساعة</p>
                 </div>
             </div>
-
-            <div class="step-item">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h3>مراجعة الطلب</h3>
-                    <p>سنراجع طلبك والصور المرفقة خلال 24 ساعة</p>
-                </div>
-            </div>
-
-            <div class="step-item">
-                <div class="step-number">4</div>
-                <div class="step-content">
-                    <h3>الموافقة والترتيب</h3>
-                    <p>في حالة الموافقة، سنرتب موعد لاستلام المنتج من عنوانك</p>
-                </div>
-            </div>
-
-            <div class="step-item">
-                <div class="step-number">5</div>
-                <div class="step-content">
-                    <h3>فحص المنتج</h3>
-                    <p>سنقوم بفحص المنتج للتأكد من استيفاء جميع الشروط</p>
-                </div>
-            </div>
-
-            <div class="step-item">
-                <div class="step-number">6</div>
-                <div class="step-content">
-                    <h3>استرداد المبلغ</h3>
-                    <p>بعد الفحص والموافقة، يتم استرداد المبلغ كاملاً خلال 3-5 أيام عمل</p>
+            <div style="display: flex; gap: 20px;">
+                <div
+                    style="background: var(--primary-color); color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">
+                    3</div>
+                <div>
+                    <h3 style="font-size: 1.1rem; color: var(--primary-color); margin-bottom: 5px;">استرداد المبلغ</h3>
+                    <p style="font-size: 0.9rem; color: #666; margin: 0;">في حال قبول الطلب، سيتم استرداد المبلغ كاملاً
+                        خلال 3-5 أيام عمل</p>
                 </div>
             </div>
         </div>
 
-        <h2>طرق استرداد المبلغ</h2>
-
-        <ul>
-            <li><strong>الدفع عند الاستلام:</strong> يتم الاسترداد عبر تحويل بنكي لحسابك</li>
-            <li><strong>الدفع الإلكتروني:</strong> يتم الاسترداد لنفس وسيلة الدفع المستخدمة</li>
-            <li><strong>المدة:</strong> 3-5 أيام عمل من تاريخ الموافقة على الإرجاع</li>
-        </ul>
-
-        <h2>معلومات إضافية</h2>
-
-        <h3>تكاليف الشحن</h3>
-        <ul>
-            <li>في حالة عيب الصناعة أو الخطأ من جانبنا: نتحمل تكاليف الشحن بالكامل</li>
-            <li>في حالة تغيير الرأي (غير مقبول): لا يتم الإرجاع</li>
-        </ul>
-
-        <h3>مدة معالجة الطلب</h3>
-        <ul>
-            <li>مراجعة الطلب: 24 ساعة</li>
-            <li>استلام المنتج: 2-3 أيام عمل</li>
-            <li>فحص المنتج: 1-2 يوم عمل</li>
-            <li>استرداد المبلغ: 3-5 أيام عمل</li>
-        </ul>
-
-        <div class="highlight-box">
-            <h3 style="margin-bottom: 10px; color: #856404;">💡 نصائح مهمة</h3>
-            <ul style="margin: 0;">
-                <li>احتفظ بالعبوة الأصلية حتى تتأكد من رضاك عن المنتج</li>
-                <li>افحص المنتج جيداً عند الاستلام</li>
-                <li>التقط صور واضحة لأي عيب قبل التواصل معنا</li>
-                <li>لا تتخلص من أي ملحقات أو أجزاء</li>
-                <li>تواصل معنا خلال المدة المحددة (14 يوم)</li>
-            </ul>
-        </div>
-
-        <h2>الأسئلة الشائعة</h2>
-
-        <h3>س: هل يمكنني استبدال المنتج بمنتج آخر؟</h3>
-        <p><strong>ج:</strong> لا، نحن لا نقوم بالاستبدال. يمكنك إرجاع المنتج (في حالة عيب الصناعة) واسترداد المبلغ، ثم طلب منتج جديد.</p>
-
-        <h3>س: ماذا لو استلمت المنتج تالف؟</h3>
-        <p><strong>ج:</strong> لا تستلم المنتج من المندوب، وتواصل معنا فوراً. سنرسل لك منتج بديل على حسابنا.</p>
-
-        <h3>س: هل يمكنني إرجاع منتج التجميل إذا لم يناسبني؟</h3>
-        <p><strong>ج:</strong> لا، منتجات التجميل والعناية الشخصية لا يُقبل إرجاعها أو استبدالها نهائياً لأسباب صحية.</p>
-
-        <h3>س: كم يستغرق استرداد المبلغ؟</h3>
-        <p><strong>ج:</strong> 3-5 أيام عمل من تاريخ الموافقة على الإرجاع وفحص المنتج.</p>
-
-        <h3>س: ماذا لو تأخرت في طلب الإرجاع بعد 14 يوم؟</h3>
-        <p><strong>ج:</strong> للأسف، لا يمكننا قبول طلب الإرجاع بعد انقضاء المدة المحددة.</p>
-
-        <div class="whatsapp-cta">
-            <h3>هل لديك استفسار عن سياسة الإرجاع؟</h3>
-            <p>فريقنا متاح على مدار الساعة للإجابة على جميع استفساراتك</p>
-            <a href="https://wa.me/201110760081?text=مرحباً، لدي استفسار عن سياسة الإرجاع" class="whatsapp-btn" target="_blank">
-                📱 تواصل عبر واتساب
-            </a>
-        </div>
-
-        <p style="text-align: center; margin-top: 40px; padding: 20px; background: #e3f2fd; border-radius: 8px;">
+        <p
+            style="text-align: center; margin-top: 40px; padding: 25px; background: #e3f2fd; border-radius: 12px; color: var(--primary-color);">
             <strong>نحن نهتم برضاك ونسعى لتقديم أفضل خدمة ممكنة. شكراً لثقتك في السوق السعودي.</strong>
         </p>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>عن السوق السعودي</h3>
+                <p>نحن وجهتك الأولى لتسوق أفضل المنتجات الأصلية في المملكة، نجمع بين الجودة والفخامة وخدمة التوصيل
+                    السريع لضمان أفضل تجربة تسوق.</p>
+            </div>
+            <div class="footer-section">
+                <h3>روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">الرئيسية</a></li>
+                    <li><a href="about.html">من نحن</a></li>
+                    <li><a href="contact.html">تواصل معنا</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>السياسات القانونية</h3>
+                <ul class="footer-links">
+                    <li><a href="shipping.html">سياسة الشحن</a></li>
+                    <li><a href="return-policy.html">سياسة الإرجاع</a></li>
+                    <li><a href="terms.html">الشروط والأحكام</a></li>
+                    <li><a href="privacy.html">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>تواصل معنا</h3>
+                <p>مؤسسة alsooq-alsaudi</p>
+                <p>المملكة العربية السعودية، السعودية</p>
+                <p>الرياض 12211</p>
+                <p style="margin-top: 15px; color: var(--accent-color); font-weight: bold; font-size: 1.1rem;">واتساب:
+                    +201110760081</p>
+                <p style="margin-top: 5px; font-size: 0.9rem;">البريد: sherow1982@gmail.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>جميع الحقوق محفوظة &copy; 2026 السوق السعودي - فخامة التسوق بين يديك</p>
+        </div>
+    </footer>
 </body>
+
 </html>

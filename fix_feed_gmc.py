@@ -163,12 +163,21 @@ def fix_product_feed():
         xml.append(f'      <g:price>{product["price"]}.00 SAR</g:price>')
         xml.append(f'      <g:sale_price>{product["sale_price"]}.00 SAR</g:sale_price>')
         xml.append('      <g:brand>السوق السعودي</g:brand>')
+        
+        # المعرفات الفريدة - أساسية لعام 2026
         if mpn:
             xml.append(f'      <g:mpn>{mpn}</g:mpn>')
+        
         if gtin:
             xml.append(f'      <g:gtin>{gtin}</g:gtin>')
+            xml.append('      <g:identifier_exists>yes</g:identifier_exists>')
+        else:
+            xml.append('      <g:identifier_exists>no</g:identifier_exists>')
+
         xml.append(f'      <g:google_product_category>{google_cat}</g:google_product_category>')
         xml.append(f'      <g:product_type>{product_type}</g:product_type>')
+        
+        # معلومات الشحن الموحدة
         xml.append('      <g:shipping>')
         xml.append('        <g:country>SA</g:country>')
         xml.append('        <g:service>Standard</g:service>')
