@@ -15,7 +15,7 @@ if sys.stdout.encoding.lower() != 'utf-8':
 _DESCRIPTIONS_CACHE = None
 
 def load_descriptions():
-    """تحميل الوصف من ملف descriptions.json"""
+    """تحميل الوصف من ملف descriptions.json كقاموس (ID -> text)"""
     global _DESCRIPTIONS_CACHE
     if _DESCRIPTIONS_CACHE is not None:
         return _DESCRIPTIONS_CACHE
@@ -23,19 +23,39 @@ def load_descriptions():
     try:
         with open('descriptions.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
-            _DESCRIPTIONS_CACHE = list(data.values())
+            # Ensure keys are strings for consistent lookup
+            _DESCRIPTIONS_CACHE = {str(k): v for k, v in data.items()}
             return _DESCRIPTIONS_CACHE
     except Exception as e:
         print(f"⚠️ Error loading descriptions: {e}")
-        return []
+        return {}
 
-def get_random_description(title, descriptions=None):
-    """الحصول على وصف عشوائي مناسب للمنتج"""
+def clean_description(title, description):
+    """تنظيف الوصف وحذف العنوان المكرر من بدايته"""
+    if not description:
+        return ""
+    
+    # Remove title if it appears at the very beginning
+    # Some descriptions start with: "Title: Actual Content" or just "Title Actual Content"
+    clean_title = title.strip()
+    if description.startswith(clean_title):
+        description = description[len(clean_title):].lstrip(' :-,.،')
+    
+    # If the description is still empty or too short, return a fallback
+    if len(description) < 10:
+        return f"اكتشف {title} - منتج عالي الجودة متوفر الآن في السوق السعودي بخصم حصري وتوصيل سريع."
+        
+    return description
+
+def get_product_description(product_id, title, descriptions=None):
+    """الحصول على الوصف الدقيق للمنتج بناءً على ID"""
     if descriptions is None:
         descriptions = load_descriptions()
-    if not descriptions:
-        return f"{title} - منتج أصلي بضمان الجودة. اطلب الآن من السوق السعودي!"
-    return random.choice(descriptions)
+        
+    pid_str = str(product_id)
+    description = descriptions.get(pid_str, "")
+    
+    return clean_description(title, description)
 
 def create_slug(product):
     """توليد slug فريد للمنتج"""
@@ -90,7 +110,7 @@ def generate_product_html(product, descriptions=None):
     discount = product['price'] - product['sale_price']
     discount_percentage = int((discount / product['price']) * 100) if product['price'] > 0 else 0
     
-    description = get_random_description(product['title'], descriptions)
+    description = get_product_description(product['id'], product['title'], descriptions)
     
     product_url = f"https://sherow1982.github.io/alsooq-alsaudi/products/{encoded_slug}.html"
     whatsapp_message = f"""مرحباً، أريد طلب المنتج التالي:
@@ -203,15 +223,61 @@ def generate_product_html(product, descriptions=None):
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.012c.109.006.252-.041.397.308.145.348.499 1.223.541 1.312.041.089.068.191.008.312-.06.121-.09.197-.181.302-.09.105-.19.235-.272.316-.09.09-.184.188-.079.365.105.177.465.766.997 1.239.685.611 1.26.802 1.437.89.177.089.282.075.387-.041.105-.116.443-.518.562-.695.119-.177.239-.148.405-.087.166.061 1.054.497 1.234.587s.3.135.344.209c.044.075.044.436-.1.841z"/></svg>
                     </a>
 
+                    <div class="policy-buttons">
+                        <a href="../shipping.html" class="policy-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                            سياسة الشحن والتوصيل
+                        </a>
+                        <a href="../return-policy.html" class="policy-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                            سياسة الإرجاع والاستبدال
+                        </a>
+                    </div>
+
+
                     <div class="trust-badges">
                         <div class="badge-item">✅ أصلي 100%</div>
-                        <div class="badge-item">🚚 شحن مجاني</div>
-                        <div class="badge-item">🔄 إرجاع سهل</div>
-                        <div class="badge-item">💳 دفع عند الاستلام</div>
+                        <div class="badge-item">🚚 شحن مجاني للسعودية</div>
+                        <div class="badge-item">💰 الدفع عند الاستلام</div>
+                        <div class="badge-item">🔄 إرجاع خلال 14 يوم</div>
                     </div>
                 </div>
             </div>
+
+            <!-- FAQ Section -->
+            <div class="product-faq">
+                <h2 class="faq-title">الأسئلة الشائعة</h2>
+                
+                <details class="faq-item" open>
+                    <summary>هل هذا المنتج أصلي؟</summary>
+                    <div class="faq-content">
+                        نعم، جميع منتجاتنا في السوق السعودي أصلية 100% ومضمونة الجودة. نحن نتعامل مباشرة مع الموردين المعتمدين لضمان حصولك على أفضل تجربة.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>كم يستغرق الشحن وإلى أين توصلون؟</summary>
+                    <div class="faq-content">
+                        التوصيل مجاني تماماً لجميع أنحاء المملكة العربية السعودية. يستغرق الوقت عادة من 1 إلى 3 أيام عمل حسب منطقتك.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>ما هي سياسة الإرجاع؟</summary>
+                    <div class="faq-content">
+                        يمكنك إرجاع المنتج خلال 14 يوماً من الاستلام في حال وجود أي عيب مصنعي أو إذا كان المنتج مختلفاً عما طلبته، بشرط أن يكون في تغليفه الأصلي.
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary>كيف يمكنني استلام طلبي؟</summary>
+                    <div class="faq-content">
+                        نوفر خدمة الدفع عند الاستلام لراحتك وأمانك. سيقوم مندوب التوصيل بالتواصل معك لتحديد الموعد والمكان المناسبين لك.
+                    </div>
+                </details>
+            </div>
         </main>
+
 
         <a href="https://wa.me/201110760081" class="floating-whatsapp" target="_blank" title="تواصل معنا بالواتساب">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.18-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.231.006.332.012c.109.006.252-.041.397.308.145.348.499 1.223.541 1.312.041.089.068.191.008.312-.06.121-.09.197-.181.302-.09.105-.19.235-.272.316-.09.09-.184.188-.079.365.105.177.465.766.997 1.239.685.611 1.26.802 1.437.89.177.089.282.075.387-.041.105-.116.443-.518.562-.695.119-.177.239-.148.405-.087.166.061 1.054.497 1.234.587s.3.135.344.209c.044.075.044.436-.1.841z"/></svg>

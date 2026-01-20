@@ -692,3 +692,107 @@ footer {
     position: relative;
     animation: shimmer 1s linear infinite forwards;
 }
+
+/* FAQ Section */
+.product-faq {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid #eee;
+}
+
+.faq-title {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.faq-item {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.faq-item:hover {
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.faq-item summary {
+    padding: 20px 25px;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text-color);
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    outline: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: '⊕';
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+.faq-item[open] summary::after {
+    content: '⊖';
+}
+
+.faq-content {
+    padding: 0 25px 20px;
+    color: #666;
+    line-height: 1.8;
+}
+
+/* Policy Buttons */
+.policy-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.policy-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f8f9fa;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 1px solid #eee;
+    transition: var(--transition);
+}
+
+.policy-btn:hover {
+    background: white;
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.policy-btn svg {
+    color: var(--accent-color);
+}
+
+@media (max-width: 768px) {
+    .policy-buttons {
+        grid-template-columns: 1fr;
+    }
+}
