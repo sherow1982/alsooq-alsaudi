@@ -377,20 +377,26 @@
         });
 
         init();
-
-        // Suppress all extension errors
-        window.addEventListener('error', function(e) {
-            if (e.message && (e.message.includes('extension') || e.message.includes('runtime'))) {
-                e.preventDefault();
-                return true;
-            }
-        });
-
-        window.addEventListener('unhandledrejection', function(e) {
-            if (e.reason && e.reason.message && e.reason.message.includes('extension')) {
-                e.preventDefault();
-            }
-        });
+    </script>
+    <script>
+        // Suppress extension errors
+        (function() {
+            const noop = () => {};
+            ['error', 'unhandledrejection'].forEach(event => {
+                window.addEventListener(event, e => {
+                    if (e.message?.includes('extension') || e.reason?.message?.includes('extension')) {
+                        e.stopImmediatePropagation();
+                        e.preventDefault();
+                    }
+                }, true);
+            });
+            const originalError = console.error;
+            console.error = (...args) => {
+                const msg = args[0]?.toString() || '';
+                if (msg.includes('runtime') || msg.includes('extension') || msg.includes('chrome-extension')) return;
+                originalError.apply(console, args);
+            };
+        })();
     </script>
 </body>
 </html>
