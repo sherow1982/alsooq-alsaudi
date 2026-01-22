@@ -1,5 +1,6 @@
 import json
 import re
+import os
 from urllib.parse import quote
 import sys
 
@@ -112,8 +113,24 @@ def fix_product_feed():
     """إصلاح ملف product-feed.xml بالكامل"""
     base_url = "https://sherow1982.github.io/alsooq-alsaudi"
     
-    with open('products.json', 'r', encoding='utf-8') as f:
-        products = json.load(f)
+    # فحص وجود ملف المنتجات
+    if not os.path.exists('products.json'):
+        print("❌ products.json not found")
+        return
+    
+    try:
+        with open('products.json', 'r', encoding='utf-8') as f:
+            products = json.load(f)
+    except (json.JSONDecodeError, UnicodeDecodeError) as e:
+        print(f"❌ Error reading products.json: {e}")
+        return
+    except Exception as e:
+        print(f"❌ Unexpected error: {e}")
+        return
+    
+    if not products:
+        print("⚠️ No products found")
+        return
     
     descriptions = load_descriptions()
     

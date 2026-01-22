@@ -1,0 +1,93 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://sherow1982.github.io/alsooq-alsaudi/#website",
+      "url": "https://sherow1982.github.io/alsooq-alsaudi/",
+      "name": "السوق السعودي",
+      "description": "متجر إلكتروني متخصص في بيع المنتجات الأصلية للعملاء في المملكة العربية السعودية",
+      "inLanguage": "ar",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://sherow1982.github.io/alsooq-alsaudi/?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://sherow1982.github.io/alsooq-alsaudi/#organization",
+      "name": "السوق السعودي",
+      "alternateName": "alsooq-alsaudi",
+      "url": "https://sherow1982.github.io/alsooq-alsaudi/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sherow1982.github.io/alsooq-alsaudi/logo.png",
+        "width": 200,
+        "height": 200
+      },
+      "description": "متجر إلكتروني متخصص في بيع المنتجات الأصلية للعملاء في المملكة العربية السعودية",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "المملكة العربية السعودية",
+        "addressLocality": "الرياض",
+        "postalCode": "12211",
+        "addressCountry": "SA"
+      },
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+201110760081",
+          "contactType": "customer service",
+          "availableLanguage": "Arabic",
+          "hoursAvailable": "24/7"
+        }
+      ],
+      "email": "sherow1982@gmail.com",
+      "foundingDate": "2024",
+      "areaServed": {
+        "@type": "Country",
+        "name": "Saudi Arabia"
+      },
+      "paymentAccepted": ["Cash on Delivery", "Bank Transfer"],
+      "currenciesAccepted": "SAR",
+      "priceRange": "100-1500 SAR",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "منتجات السوق السعودي",
+        "itemListElement": [
+          {
+            "@type": "OfferCatalog",
+            "name": "العناية بالشعر"
+          },
+          {
+            "@type": "OfferCatalog", 
+            "name": "العناية بالجمال"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "الإلكترونيات"
+          },
+          {
+            "@type": "OfferCatalog",
+            "name": "الصحة والعافية"
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://sherow1982.github.io/alsooq-alsaudi/#webpage",
+      "url": "https://sherow1982.github.io/alsooq-alsaudi/",
+      "name": "السوق السعودي | فخامة التسوق وسرعة التوصيل",
+      "description": "السوق السعودي - وجهتك الأولى لأفضل المنتجات الأصلية والعروض الحصرية في المملكة",
+      "inLanguage": "ar",
+      "isPartOf": {
+        "@id": "https://sherow1982.github.io/alsooq-alsaudi/#website"
+      },
+      "about": {
+        "@id": "https://sherow1982.github.io/alsooq-alsaudi/#organization"
+      }
+    }
+  ]
+}

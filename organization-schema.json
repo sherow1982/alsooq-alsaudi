@@ -1,0 +1,57 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "السوق السعودي",
+  "alternateName": "alsooq-alsaudi",
+  "url": "https://sherow1982.github.io/alsooq-alsaudi/",
+  "logo": "https://sherow1982.github.io/alsooq-alsaudi/logo.png",
+  "description": "متجر إلكتروني متخصص في بيع المنتجات الأصلية للعملاء في المملكة العربية السعودية",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "المملكة العربية السعودية",
+    "addressLocality": "الرياض",
+    "postalCode": "12211",
+    "addressCountry": "SA"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+201110760081",
+    "contactType": "customer service",
+    "availableLanguage": "Arabic"
+  },
+  "email": "sherow1982@gmail.com",
+  "foundingDate": "2024",
+  "areaServed": {
+    "@type": "Country",
+    "name": "Saudi Arabia"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "منتجات السوق السعودي",
+    "itemListElement": [
+      {
+        "@type": "OfferCatalog",
+        "name": "العناية بالشعر",
+        "itemListElement": []
+      },
+      {
+        "@type": "OfferCatalog", 
+        "name": "العناية بالجمال",
+        "itemListElement": []
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "الإلكترونيات", 
+        "itemListElement": []
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "الصحة والعافية",
+        "itemListElement": []
+      }
+    ]
+  },
+  "paymentAccepted": "Cash on Delivery",
+  "currenciesAccepted": "SAR",
+  "priceRange": "100-1500 SAR"
+}

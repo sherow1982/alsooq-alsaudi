@@ -1,0 +1,32 @@
+{
+  "merchant_info": {
+    "business_name": "مؤسسة alsooq-alsaudi",
+    "business_type": "تجارة إلكترونية - بيع بالتجزئة",
+    "country": "SA",
+    "address": {
+      "street": "المملكة العربية السعودية",
+      "city": "الرياض",
+      "postal_code": "12211",
+      "country": "Saudi Arabia"
+    },
+    "contact": {
+      "phone": "+201110760081",
+      "email": "sherow1982@gmail.com",
+      "website": "https://sherow1982.github.io/alsooq-alsaudi/"
+    },
+    "business_hours": "24/7 خدمة العملاء",
+    "policies": {
+      "return_policy": "إمكانية الإرجاع خلال 14 يوم",
+      "shipping_policy": "شحن مجاني لجميع أنحاء المملكة",
+      "payment_methods": ["دفع عند الاستلام", "تحويل بنكي"],
+      "quality_guarantee": "جميع المنتجات أصلية 100%"
+    },
+    "certifications": {
+      "business_license": "مرخص للعمل في المملكة العربية السعودية",
+      "tax_registration": "مسجل ضريبياً",
+      "consumer_protection": "ملتزم بقوانين حماية المستهلك"
+    },
+    "verification_date": "2026-01-01",
+    "last_updated": "2026-01-01"
+  }
+}

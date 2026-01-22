@@ -1,0 +1,28 @@
+# Commands to upload to GitHub
+
+# 1. Add all files
+git add .
+
+# 2. Commit changes
+git commit -m "Update store for merchant center approval - Add verification files and improve SEO"
+
+# 3. Push to repository
+git push origin main
+
+# Files added for merchant center approval:
+# - merchant-verification.html
+# - merchant-info.json
+# - organization-schema.json
+# - structured-data.json
+# - google-merchant-verification.txt
+# - facebook-domain-verification.txt
+# - pinterest-verification.txt
+# - Updated index.html with meta tags and JSON-LD
+# - Updated robots.txt for better crawling
+# - Enhanced product-feed.xml
+
+# The store is now ready for:
+# ✅ Google Merchant Center
+# ✅ Facebook Shop
+# ✅ Pinterest Business
+# ✅ Bing Shopping

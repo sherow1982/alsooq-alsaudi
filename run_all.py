@@ -9,6 +9,11 @@ import sys
 import os
 from pathlib import Path
 
+# Force UTF-8 encoding for Windows console
+if sys.platform == 'win32':
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stderr.reconfigure(encoding='utf-8')
+
 def run_script(script_name, description):
     """تشغيل سكريبت واحد مع معالجة الأخطاء"""
     print(f"\n{'='*50}")
