@@ -13,10 +13,15 @@ import re
 from datetime import datetime, timedelta
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from urllib.parse import quote
+import multiprocessing
 
 # Force UTF-8 for output to avoid encoding errors on Windows
 if sys.stdout.encoding.lower() != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
+
+# Configuration
+BASE_URL = "https://sherow1982.github.io/alsooq-alsaudi"
+PHONE_NUMBER = "+201110760081"
 
 # Cache for descriptions
 _DESCRIPTIONS = None
@@ -26,13 +31,26 @@ def load_descriptions():
     global _DESCRIPTIONS
     if _DESCRIPTIONS is not None:
         return _DESCRIPTIONS
+    
+    descriptions_file = Path('descriptions.json')
+    if not descriptions_file.exists():
+        print("⚠️ descriptions.json not found")
+        _DESCRIPTIONS = {}
+        return _DESCRIPTIONS
+        
     try:
-        with open('descriptions.json', 'r', encoding='utf-8') as f:
+        with open(descriptions_file, 'r', encoding='utf-8') as f:
             data = json.load(f)
             _DESCRIPTIONS = {str(k): v for k, v in data.items()}
             return _DESCRIPTIONS
-    except Exception:
-        return {}
+    except (json.JSONDecodeError, UnicodeDecodeError) as e:
+        print(f"⚠️ Error reading descriptions.json: {e}")
+        _DESCRIPTIONS = {}
+        return _DESCRIPTIONS
+    except Exception as e:
+        print(f"⚠️ Unexpected error loading descriptions.json: {e}")
+        _DESCRIPTIONS = {}
+        return _DESCRIPTIONS
 
 def clean_description(title, description):
     """تنظيف الوصف وحذف العنوان المكرر من بدايته"""
@@ -86,7 +104,7 @@ def create_product_schema(product, descriptions):
     
     slug = create_slug(product)
     encoded_slug = quote(slug)
-    product_url = f"https://sherow1982.github.io/alsooq-alsaudi/products/{encoded_slug}.html"
+    product_url = f"{BASE_URL}/products/{encoded_slug}.html"
     
     # تاريخ انتهاء السعر (سنة من الآن)
     price_valid_until = (datetime.now() + timedelta(days=365)).strftime('%Y-%m-%d')
@@ -166,9 +184,9 @@ def create_local_business_schema():
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "alsooq-alsaudi",
-        "image": "https://sherow1982.github.io/alsooq-alsaudi/logo.png",
-        "url": "https://sherow1982.github.io/alsooq-alsaudi/",
-        "telephone": "+201110760081",
+        "image": f"{BASE_URL}/logo.png",
+        "url": f"{BASE_URL}/",
+        "telephone": PHONE_NUMBER,
         "email": "sherow1982@gmail.com",
         "address": {
             "@type": "PostalAddress",
@@ -203,7 +221,7 @@ def create_meta_tags(product, descriptions):
     
     slug = create_slug(product)
     encoded_slug = quote(slug)
-    product_url = f"https://sherow1982.github.io/alsooq-alsaudi/products/{encoded_slug}.html"
+    product_url = f"{BASE_URL}/products/{encoded_slug}.html"
     
     # تنظيف العنوان
     clean_title = title.replace('عرض ', '').strip()
@@ -259,7 +277,7 @@ def inject_seo_into_html(html_content, product, lb_schema, descriptions):
     html_content = re.sub(r'<script type="application/ld\+json">.*?</script>', '', html_content, flags=re.DOTALL)
     
     # 2. إزالة Meta Tags القديمة
-    html_content = re.sub(r'<!-- SEO Meta Tags -->.*?<!-- Twitter Card Meta Tags -->.*?(?=</head>)', '', html_content, flags=re.DOTALL | re.IGNORECASE)
+    html_content = re.sub(r'<!-- SEO Meta Tags -->.*?(?=</head>)', '', html_content, flags=re.DOTALL | re.IGNORECASE)
 
     # 3. إزالة التعليقات المتبقية
     html_content = html_content.replace('<!-- Product Schema JSON-LD -->', '')
@@ -330,7 +348,8 @@ def main():
     import time
     start_time = time.time()
     
-    with ProcessPoolExecutor() as executor:
+    max_workers = min(multiprocessing.cpu_count(), 4)
+    with ProcessPoolExecutor(max_workers=max_workers) as executor:
         futures = {executor.submit(process_single_file, p, products_dir, lb_schema, descriptions): p for p in products}
         
         processed_count = 0

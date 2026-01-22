@@ -1,0 +1,26 @@
+{
+  "site_config": {
+    "base_url": "https://sherow1982.github.io/alsooq-alsaudi",
+    "site_name": "السوق السعودي",
+    "phone_number": "+201110760081",
+    "email": "sherow1982@gmail.com",
+    "company_name": "alsooq-alsaudi",
+    "address": {
+      "street": "المملكة العربية السعودية",
+      "city": "الرياض",
+      "postal_code": "12211",
+      "country": "SA"
+    }
+  },
+  "processing_config": {
+    "max_workers": 4,
+    "batch_size": 200,
+    "enable_parallel": true
+  },
+  "seo_config": {
+    "default_meta_description_length": 160,
+    "default_title_suffix": "| السوق السعودي",
+    "enable_schema": true,
+    "enable_open_graph": true
+  }
+}

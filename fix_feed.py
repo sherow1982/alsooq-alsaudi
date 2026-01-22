@@ -49,8 +49,24 @@ def fix_product_feed():
     """إصلاح ملف product-feed.xml وإعادة توليده"""
     base_url = "https://sherow1982.github.io/alsooq-alsaudi"
     
-    with open('products.json', 'r', encoding='utf-8') as f:
-        products = json.load(f)
+    # فحص وجود ملف المنتجات
+    if not os.path.exists('products.json'):
+        print("❌ products.json not found")
+        return
+    
+    try:
+        with open('products.json', 'r', encoding='utf-8') as f:
+            products = json.load(f)
+    except (json.JSONDecodeError, UnicodeDecodeError) as e:
+        print(f"❌ Error reading products.json: {e}")
+        return
+    except Exception as e:
+        print(f"❌ Unexpected error: {e}")
+        return
+    
+    if not products:
+        print("⚠️ No products found")
+        return
     
     xml = ['<?xml version="1.0" encoding="UTF-8"?>']
     xml.append('<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">')
@@ -93,10 +109,14 @@ def fix_product_feed():
     xml.append('  </channel>')
     xml.append('</rss>')
     
-    with open('product-feed.xml', 'w', encoding='utf-8') as f:
-        f.write('\n'.join(xml))
-    
-    print("Done! product-feed.xml generated successfully")
+    try:
+        with open('product-feed.xml', 'w', encoding='utf-8') as f:
+            f.write('\n'.join(xml))
+        print("Done! product-feed.xml generated successfully")
+    except (OSError, IOError) as e:
+        print(f"❌ Error writing product-feed.xml: {e}")
+    except Exception as e:
+        print(f"❌ Unexpected error writing file: {e}")
 
 if __name__ == "__main__":
     fix_product_feed()
