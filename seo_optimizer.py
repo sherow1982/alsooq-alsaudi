@@ -10,10 +10,11 @@ import os
 import sys
 from pathlib import Path
 import re
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from urllib.parse import quote
 import multiprocessing
+import html
 
 # Force UTF-8 for output to avoid encoding errors on Windows
 if sys.stdout.encoding.lower() != 'utf-8':
@@ -55,14 +56,16 @@ def load_descriptions():
 def clean_description(title, description):
     """تنظيف الوصف وحذف العنوان المكرر من بدايته"""
     if not description:
-        return f"{title} - منتج عالي الجودة متوفر الآن في السوق السعودي بتوصيل سريع."
+        return f"{html.escape(str(title))} - منتج عالي الجودة متوفر الآن في السوق السعودي بتوصيل سريع."
     
-    clean_title = title.strip()
+    clean_title = html.escape(str(title).strip())
+    description = html.escape(str(description))
+    
     if description.startswith(clean_title):
         description = description[len(clean_title):].lstrip(' :-,.،')
     
     if len(description) < 10:
-        return f"اكتشف {title} - منتج عالي الجودة متوفر الآن في السوق السعودي بخصم حصري وتوصيل سريع."
+        return f"اكتشف {html.escape(str(title))} - منتج عالي الجودة متوفر الآن في السوق السعودي بخصم حصري وتوصيل سريع."
         
     return description
 
@@ -107,7 +110,7 @@ def create_product_schema(product, descriptions):
     product_url = f"{BASE_URL}/products/{encoded_slug}.html"
     
     # تاريخ انتهاء السعر (سنة من الآن)
-    price_valid_until = (datetime.now() + timedelta(days=365)).strftime('%Y-%m-%d')
+    price_valid_until = (datetime.now(timezone.utc) + timedelta(days=365)).strftime('%Y-%m-%d')
     
     schema = {
         "@context": "https://schema.org/",
@@ -305,10 +308,13 @@ def process_single_file(product, products_dir, lb_schema, descriptions):
     """Worker function for single file processing"""
     try:
         slug = create_slug(product)
-        file_path = products_dir / f"{slug}.html"
+        safe_slug = re.sub(r'[^a-z0-9\-]', '', slug.lower())
+        file_path = products_dir / f"{safe_slug}.html"
+        
+        if not str(file_path.resolve()).startswith(str(products_dir.resolve())):
+            return False, f"Path traversal attempt: {product['id']}"
         
         if not file_path.exists():
-            # Fallback search if exact slug doesn't match
             pattern = f"{product['id']}-*.html"
             matching_files = list(products_dir.glob(pattern))
             if matching_files:
@@ -336,7 +342,7 @@ def main():
     
     products = load_products()
     descriptions = load_descriptions()
-    products_dir = Path('products')
+    products_dir = Path('products').resolve()
     lb_schema = create_local_business_schema()
     
     print(f"📦 Total Products: {len(products)}")

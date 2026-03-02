@@ -1,8 +1,8 @@
 import os
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 import xml.etree.ElementTree as ET
-from xml.dom import minidom
+from defusedxml import minidom as safe_minidom
 
 def generate_sitemap():
     base_url = "https://sherow1982.github.io/alsooq-alsaudi/"
@@ -43,7 +43,7 @@ def generate_sitemap():
 
     # Save with pretty formatting
     xml_str = ET.tostring(urlset, encoding='utf-8')
-    pretty_xml = minidom.parseString(xml_str).toprettyxml(indent="  ")
+    pretty_xml = safe_minidom.parseString(xml_str).toprettyxml(indent="  ")
     
     with open(sitemap_file, "w", encoding="utf-8") as f:
         f.write(pretty_xml)

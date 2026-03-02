@@ -3,6 +3,7 @@ import re
 import os
 from urllib.parse import quote
 import sys
+import html
 
 # Force UTF-8 for output to avoid encoding errors on Windows
 if sys.stdout.encoding.lower() != 'utf-8':
@@ -28,18 +29,19 @@ def load_descriptions():
 def clean_description(title, description):
     """تنظيف الوصف وحذف العنوان المكرر من بدايته"""
     if not description:
-        return f"{title} - منتج عالي الجودة متوفر الآن في السوق السعودي بتوصيل سريع."
+        return f"{html.escape(str(title))} - منتج عالي الجودة متوفر الآن في السوق السعودي بتوصيل سريع."
     
-    clean_title = title.strip()
+    clean_title = html.escape(str(title).strip())
+    description = html.escape(str(description))
+    
     if description.startswith(clean_title):
         description = description[len(clean_title):].lstrip(' :-,.،')
     
     if len(description) < 10:
-        return f"اكتشف {title} - منتج عالي الجودة متوفر الآن في السوق السعودي بخصم حصري وتوصيل سريع."
+        return f"اكتشف {html.escape(str(title))} - منتج عالي الجودة متوفر الآن في السوق السعودي بخصم حصري وتوصيل سريع."
         
-    # GMC prefers clean text without too many emojis or excessive symbols
     description = re.sub(r'[^\w\s\.\,\!\?\% ر.س]', '', description)
-    return description[:4900] # GMC limit is 5000
+    return description[:4900]
 
 def get_product_description(product_id, title, descriptions=None):
     """الحصول على الوصف المطابق تماماً لما هو معروض في المتجر"""

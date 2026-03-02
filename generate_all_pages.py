@@ -8,6 +8,7 @@ import sys
 import os
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import multiprocessing
+import html
 
 # Force UTF-8 for output to avoid encoding errors on Windows
 if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
@@ -47,12 +48,14 @@ def clean_description(title, description):
     if not description:
         return ""
     
-    clean_title = title.strip()
+    clean_title = html.escape(str(title).strip())
+    description = html.escape(str(description))
+    
     if description.startswith(clean_title):
         description = description[len(clean_title):].lstrip(' :-,.،')
     
     if len(description) < 10:
-        return f"اكتشف {title} - منتج عالي الجودة متوفر الآن في السوق السعودي بخصم حصري وتوصيل سريع."
+        return f"اكتشف {html.escape(str(title))} - منتج عالي الجودة متوفر الآن في السوق السعودي بخصم حصري وتوصيل سريع."
         
     return description.strip()
 
@@ -376,10 +379,16 @@ def process_single_product(product, descriptions):
         if not html:
             return False, f"Failed to generate HTML for product {product_id}"
         
-        products_dir = Path('products')
+        products_dir = Path('products').resolve()
+        if not str(products_dir).startswith(str(Path.cwd())):
+            return False, f"Invalid path for product {product_id}"
+        
         products_dir.mkdir(parents=True, exist_ok=True)
         
         file_path = products_dir / f"{slug}.html"
+        
+        if not str(file_path.resolve()).startswith(str(products_dir)):
+            return False, f"Path traversal attempt for product {product_id}"
         
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(html)
