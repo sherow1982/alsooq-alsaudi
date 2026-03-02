@@ -15,8 +15,8 @@
     <meta name="language" content="ar" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; connect-src 'self' https: http://127.0.0.1:5500 ws://127.0.0.1:5500;">
     <title>السوق السعودي | فخامة التسوق وسرعة التوصيل</title>
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="/alsooq-alsaudi/css/main.css">
+    <link rel="icon" type="image/png" href="/alsooq-alsaudi/logo.png">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -90,8 +90,8 @@
     <header class="header">
         <div class="header-content">
             <div class="logo">
-                <a href="index.html">
-                    <img src="logo.png" alt="السوق السعودي">
+                <a href="/alsooq-alsaudi/index.html">
+                    <img src="/alsooq-alsaudi/logo.png" alt="السوق السعودي">
                 </a>
             </div>
             <nav class="nav-links" id="navLinks">
@@ -115,7 +115,7 @@
 
     <section class="hero">
         <div class="hero-overlay"></div>
-        <img src="hero-banner.png" alt="Saudi Luxe Store" class="hero-image">
+        <img src="/alsooq-alsaudi/hero-banner.png" alt="Saudi Luxe Store" class="hero-image">
         <div class="hero-content">
             <h1>فخامة التسوق السعودي</h1>
             <p>اكتشف تشكيلة واسعة من المنتجات المختارة بعناية لتناسب ذوقك الرفيع، مع خدمة توصيل سريعة لكل مدن المملكة.</p>
@@ -292,7 +292,7 @@
                 card.onclick = function(e) {
                     if (e.target.closest('.buy-button')) return;
                     // Check if product page exists, otherwise go to WhatsApp
-                    const productUrl = `products/${slug}.html`;
+                    const productUrl = `/alsooq-alsaudi/products/${slug}.html`;
                     fetch(productUrl, { method: 'HEAD' })
                         .then(response => {
                             if (response.ok) {
@@ -347,7 +347,7 @@
 
         async function init() {
             try {
-                const res = await fetch('products.json');
+                const res = await fetch('/alsooq-alsaudi/products.json');
                 if (!res.ok) throw new Error('فشل تحميل products.json');
                 allProducts = await res.json();
                 displayedProducts = [...allProducts];
